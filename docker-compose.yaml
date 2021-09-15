@@ -1,0 +1,53 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.5
+    container_name: littlebotanists-mysql
+    networks:
+      - littlebotanists-net
+    volumes:
+      - mysqldata:/var/lib/mysql/
+    environment:
+      MYSQL_DATABASE: littlebotanists
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATA: /var/lib/mysql/
+    ports:
+      - "3366:3306"
+    restart: always
+    command: sh -c 'if [ ! -f /ready ]; then printf "lower_case_table_names = 1\n" >> /etc/mysql/my.cnf && touch /ready; else echo "Already configured!"; fi && /entrypoint.sh mysqld'
+  php-fpm:
+    image: deco1800/littlebotanists-fpm
+    container_name: littlebotanists-fpm
+    networks:
+      - littlebotanists-net
+    build:
+      context: .
+    volumes:
+      - ./src:/var/www/default/htdocs
+      - ./docker/conf/www.conf:/usr/local/php/etc/php-fpm.d/www.conf
+      - ./docker/conf/xdebug.ini:/usr/local/php/etc/conf.d/xdebug.ini
+    restart: always
+    links:
+      - db
+
+  nginx:
+    image: nginx:latest
+    container_name: littlebotanists-nginx
+    networks:
+      - littlebotanists-net
+    volumes:
+      - ./src:/var/www/default/htdocs/
+      - ./docker/conf/site.conf:/etc/nginx/conf.d/site.conf
+    ports:
+      - 8084:80
+    restart: always
+    links:
+      - php-fpm
+
+networks:
+  littlebotanists-net:
+    name: littlebotanists-net
+
+volumes:
+  mysqldata:
