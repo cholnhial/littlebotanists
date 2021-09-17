@@ -1,3 +1,11 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+require_once ("config.php");
+
+?>
+
 <!doctype html>
 <html lang="en" class="h-100">
 <head>
@@ -25,8 +33,8 @@
     <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon.ico">
     <meta name="theme-color" content="#7952b3">-->
 
-
-
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
 
     <!-- Custom styles-->
     <link href="css/main.css?version=2" rel="stylesheet">
