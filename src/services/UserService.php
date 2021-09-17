@@ -1,5 +1,11 @@
 <?php
 
+/**
+ *
+ * Handles all user related functionality
+ *
+ * Class UserService
+ */
 class UserService
 {
 
