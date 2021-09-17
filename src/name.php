@@ -58,7 +58,7 @@
         })
         $( "#name" ).keyup(function() {
 
-            if (!/(.*[a-z]){3}/i.test($('#name').val())) {
+            if (!/(.*[a-z|0-9]){3}/i.test($('#name').val())) {
                 $('#name').addClass("is-invalid");
                 $('#validateNameValidFeedback').addClass("d-none");
                 $('#validateNameInValidFeedback').html("Name is too short");
