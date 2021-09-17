@@ -31,7 +31,7 @@
             $.post("ajax.php",
                 {
                     action: 'validate_name',
-                    name: $(this).val()
+                    name: $('#name').val()
                 },
                 function (resp, status, xhr) {
                     console.log(resp);
@@ -39,7 +39,7 @@
             ).fail(function (xhr, status, error) {
                 alert("Something went wrong: " + error);
             });
-        }.bind(this));
+        });
     });
 
 </script>

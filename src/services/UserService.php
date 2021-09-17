@@ -12,7 +12,7 @@ class UserService
     public function isNameTaken($name) {
         global $databaseHandle;
 
-        $stmt = $databaseHandle->query("SELECT * FROM users WHERE name=:name LIMIT 1");
+        $stmt = $databaseHandle->prepare("SELECT * FROM users WHERE name=:name");
         $stmt->execute(['name' => $name]);
         $user = $stmt->fetch();
 
