@@ -4,6 +4,8 @@ require_once ("services/UserService.php");
 
 $userService = new UserService();
 $resp = array("message" => "unrecognised action", "code" => 400, "data" => "");
+// Send the output out as JSON
+header('Content-Type: application/json');
 
 switch($_POST['action']) {
     case 'validate_name':

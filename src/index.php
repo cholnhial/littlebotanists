@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 require_once ("config.php");
 
 ?>
@@ -20,6 +17,8 @@ require_once ("config.php");
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- For Animations -->
+    <link href="css/animate.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
@@ -35,6 +34,8 @@ require_once ("config.php");
 
     <script src="js/jquery-3.6.0.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- Our custom JS -->
+    <script src="js/main.js"></script>
 
     <!-- Custom styles-->
     <link href="css/main.css?version=2" rel="stylesheet">
@@ -44,7 +45,7 @@ require_once ("config.php");
 
 <main class="flex-shrink-0">
     <div class="container">
-    <?php if($_GET['cat'] == 'name'): ?>
+    <?php if(isset($_GET['cat']) && $_GET['cat'] == 'name'): ?>
        <?php include("name.php") ?>
     <?php endif; ?>
     </div>

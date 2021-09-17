@@ -1,5 +1,7 @@
 <?php
-$activePage = $_GET['cat'];
+if (isset($_GET['cat'])) {
+    $activePage = $_GET['cat'];
+}
 ?>
 <header>
     <!-- Fixed navbar -->
