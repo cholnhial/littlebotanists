@@ -16,6 +16,9 @@ require_once ("config.php");
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Fontawesome -->
+    <link href="css/all.min.css" rel="stylesheet">
+
     <!-- For Animations -->
     <link href="css/animate.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,7 +40,7 @@ require_once ("config.php");
     <script src="js/main.js"></script>
 
     <!-- Custom styles-->
-    <link href="css/main.css?version=2" rel="stylesheet">
+    <link href="css/main.css?version=3" rel="stylesheet">
 </head>
 <body class="d-flex flex-column h-100">
 <?php include("header.php") ?>
@@ -57,4 +60,10 @@ require_once ("config.php");
 
 
 </body>
+<script>
+    $('#toggle').click(function() {
+        $(this).toggleClass('active');
+        $('#overlay').toggleClass('open');
+    });
+</script>
 </html>
