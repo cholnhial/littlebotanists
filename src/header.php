@@ -1,11 +1,13 @@
 <?php
 if (isset($_GET['cat'])) {
     $activePage = $_GET['cat'];
+} else {
+    $activePage = "index";
 }
 ?>
 <header>
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+    <!--<nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Fixed navbar</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,5 +31,19 @@ if (isset($_GET['cat'])) {
                 </form>
             </div>
         </div>
-    </nav>
+    </nav>-->
+<?php if(isset($activePage) && $activePage != 'name'): ?>
+    <div class="button_container" id="toggle"><span class="top"></span><span class="middle"></span><span class="bottom"></span></div>
+    <div class="overlay" id="overlay">
+        <nav class="overlay-menu d-flex justify-content-center">
+            <ul class="text-start">
+                <li><a href="#"><i class="fas fa-graduation-cap"></i> Study</a></li>
+                <li><a href="#"><i class="far fa-file-alt"></i> Quiz</a></li>
+                <li><a href="#"><i class="fas fa-gamepad"></i> Matching Game</a></li>
+                <li><a href="#"><i class="fas fa-chart-line"></i> Leadership</a></li>
+                <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
+            </ul>
+        </nav>
+    </div>
+<?php endif; ?>
 </header>
