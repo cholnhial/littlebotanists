@@ -2,7 +2,6 @@
 require_once ("config.php");
 
 ?>
-
 <!doctype html>
 <html lang="en" class="h-100">
 <head>

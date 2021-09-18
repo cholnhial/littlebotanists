@@ -19,7 +19,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-outline-primary friendly-btn">START</button>
+                    <button type="submit" id="submit-btn" disabled class="btn btn-outline-primary friendly-btn">START</button>
                 </form>
             </div>
         </div>
@@ -28,8 +28,18 @@
 
 <script>
     var nameLengthValid = false;
+    var isNameValid = false;
 
     $(document).ready(function() {
+
+        function disableOrEnableButton() {
+            /* Enable the button */
+            if (!isNameValid) {
+                $('#submit-btn').attr("disabled", true);
+            } else {
+                $('#submit-btn').removeAttr("disabled");
+            }
+        }
 
         $('#name-form').submit(function(e) {
             e.preventDefault();
@@ -58,12 +68,15 @@
         })
         $( "#name" ).keyup(function() {
 
+            /* Is name not using valid characters */
             if (!/(.*[a-z|0-9]){3}/i.test($('#name').val())) {
                 $('#name').addClass("is-invalid");
                 $('#validateNameValidFeedback').addClass("d-none");
                 $('#validateNameInValidFeedback').html("Name is too short");
                 $('#validateNameInValidFeedback').removeClass("d-none");
                 nameLengthValid = false;
+                isNameValid = false;
+                disableOrEnableButton();
                 restartAnimation('#name-card-wrapper', "animate__animated animate__shakeX");
             } else {
                 $('#validateNameInValidFeedback').addClass("d-none");
@@ -79,22 +92,29 @@
                     },
                     function (resp, status, xhr) {
 
+                      /* Testing if the name is available */
                         if (resp.code == 200 && resp.data == false) {
                             $('#validateNameValidFeedback').removeClass("d-none");
                             $('#validateNameInValidFeedback').addClass("d-none");
                             $('#name').removeClass("is-invalid");
                             $('#name').addClass('is-valid');
+                            isNameValid = true;
+                            disableOrEnableButton();
                         }
                     }
-                ).fail(function (xhr, status, error) {
+                ).fail(function (xhr, status, error) { /* The name is not available */
                     $('#validateNameValidFeedback').addClass("d-none");
                     $('#validateNameInValidFeedback').html("This name is already taken");
                     $('#validateNameInValidFeedback').removeClass("d-none");
                     $('#name').removeClass('is-valid');
                     $('#name').addClass("is-invalid");
                     restartAnimation('#name-card-wrapper',"animate__animated animate__shakeX");
+                    isNameValid = false;
+                    disableOrEnableButton();
                 });
+
             }
+
 
         });
     });
