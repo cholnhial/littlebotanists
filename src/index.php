@@ -46,11 +46,12 @@ if (!isset($_COOKIE['username']) && !isset($_GET['cat'])) {
 
     <script src="js/jquery-3.6.0.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/loadingoverlay.min.js"></script>
     <!-- Our custom JS -->
-    <script src="js/main.js"></script>
+    <script src="js/main.js?version=9"></script>
 
     <!-- Custom styles-->
-    <link href="css/main.css?version=7" rel="stylesheet">
+    <link href="css/main.css?version=13" rel="stylesheet">
 </head>
 <body class="d-flex flex-column h-100">
 <?php include("header.php") ?>
@@ -74,9 +75,13 @@ if (!isset($_COOKIE['username']) && !isset($_GET['cat'])) {
 
 </body>
 <script>
-    $('#toggle').click(function() {
-        $(this).toggleClass('active');
-        $('#overlay').toggleClass('open');
+    $(document).ready(function() {
+       initLoadingOverlay();
+
+        $('#toggle').click(function() {
+            $(this).toggleClass('active');
+            $('#overlay').toggleClass('open');
+        });
     });
 </script>
 </html>
