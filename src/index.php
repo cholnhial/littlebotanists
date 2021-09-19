@@ -1,6 +1,16 @@
 <?php
 require_once ("config.php");
 
+/* If the cookie is set, and we are not going to a category page then: */
+if (isset($_COOKIE['username']) && !isset($_GET['cat'])) {
+    header('Location: /index.php?cat=home');
+}
+
+/* If the ckie is not set and we are just also not going to a category page: */
+if (!isset($_COOKIE['username']) && !isset($_GET['cat'])) {
+    header("Location: /index.php?cat=name");
+}
+
 ?>
 <!doctype html>
 <html lang="en" class="h-100">
@@ -40,7 +50,7 @@ require_once ("config.php");
     <script src="js/main.js"></script>
 
     <!-- Custom styles-->
-    <link href="css/main.css?version=3" rel="stylesheet">
+    <link href="css/main.css?version=7" rel="stylesheet">
 </head>
 <body class="d-flex flex-column h-100">
 <?php include("header.php") ?>
@@ -49,6 +59,9 @@ require_once ("config.php");
     <div class="container">
     <?php if(isset($_GET['cat']) && $_GET['cat'] == 'name'): ?>
        <?php include("name.php") ?>
+    <?php endif; ?>
+    <?php if(isset($_GET['cat']) && $_GET['cat'] == 'home'): ?>
+        <?php include("home.php") ?>
     <?php endif; ?>
     </div>
 </main>
