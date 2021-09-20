@@ -1,4 +1,5 @@
 <div class="text-center" style="margin-top: 12%">
+    <img class="lblogo" src="img/Logo.png" alt="logo"/>
     <h3 class="text-center">Welcome to LittleBotanists <?= $_COOKIE['username'] ?></h3>
     <h6 class="text-center text-muted">What would you like to do today?</h6>
 </div>
