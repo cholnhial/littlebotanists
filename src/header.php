@@ -37,7 +37,7 @@ if (isset($_GET['cat'])) {
     <div class="overlay" id="overlay">
         <nav class="overlay-menu d-flex justify-content-center">
             <ul class="text-start">
-                <li><a href="#"><i class="fas fa-graduation-cap"></i> Study</a></li>
+                <li><a href="index.php?cat=study"><i class="fas fa-graduation-cap"></i> Study</a></li>
                 <li><a href="#"><i class="far fa-file-alt"></i> Quiz</a></li>
                 <li><a href="#"><i class="fas fa-gamepad"></i> Matching Game</a></li>
                 <li><a href="#"><i class="fas fa-chart-line"></i> Leadership</a></li>

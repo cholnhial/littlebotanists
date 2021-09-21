@@ -31,6 +31,7 @@
     var isNameValid = false;
 
     $(document).ready(function() {
+        initLoadingOverlay();
 
         function disableOrEnableButton() {
             /* Enable the button */
