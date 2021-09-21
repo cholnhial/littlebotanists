@@ -27,7 +27,7 @@ $module = $_GET['module'];
 
         </div>
         <div class="d-flex mt-3 justify-content-center">
-            <button class="btn btn-outline-primary friendly-btn">Start <?= $module ?> Module Quiz</button>
+            <a href="index.php?cat=module_quiz&module=<?=$module?>&plantCategoryType=<?=$categoryType?>" class="btn btn-outline-primary friendly-btn">Start <?= $module ?> Module Quiz</a>
         </div>
     </div>
     <div class="col">

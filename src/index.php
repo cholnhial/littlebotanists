@@ -58,7 +58,7 @@ if (!isset($_COOKIE['username']) && !isset($_GET['cat'])) {
     <script src="js/main.js?version=16"></script>
 
     <!-- Custom styles-->
-    <link href="css/main.css?version=19" rel="stylesheet">
+    <link href="css/main.css?version=20" rel="stylesheet">
 </head>
 <body class="d-flex flex-column h-100">
 <?php include("header.php") ?>
@@ -76,6 +76,9 @@ if (!isset($_COOKIE['username']) && !isset($_GET['cat'])) {
     <?php endif; ?>
     <?php if(isset($_GET['cat']) && $_GET['cat'] == 'study_categories'): ?>
         <?php include("study_category.php") ?>
+    <?php endif; ?>
+    <?php if(isset($_GET['cat']) && $_GET['cat'] == 'module_quiz'): ?>
+        <?php include("module_quiz.php") ?>
     <?php endif; ?>
     </div>
 </main>
