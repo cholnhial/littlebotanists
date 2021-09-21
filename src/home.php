@@ -9,12 +9,14 @@
         <div class="col-3">
         </div>
         <div class="col">
-            <div class="card menu-card">
-                <div class="card-body text-center">
-                    <h2>Study</h2>
-                    <i class="fas fa-3x fa-graduation-cap"></i>
+            <a class="text-decoration-none" href="index.php?cat=study">
+                <div class="card menu-card">
+                    <div class="card-body text-center">
+                        <h2>Study</h2>
+                        <i class="fas fa-3x fa-graduation-cap"></i>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
         <div class="col">
             <div class="card menu-card">
@@ -52,11 +54,4 @@
 </div>
 
 <script>
-    $( ".menu-card" ).hover(
-        function() {
-            $(this).addClass('shadow-lg').css('cursor', 'pointer');
-        }, function() {
-            $(this).removeClass('shadow-lg');
-        }
-    );
 </script>

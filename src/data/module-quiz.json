@@ -1,0 +1,46 @@
+{
+  "Groundcovers": [
+    {
+      "type": "mcq",
+      "questions": [
+        {
+          "question": "What is Blah Blah",
+          "answers": [
+            {
+              "letter": "A",
+              "text": "Jesus",
+              "isCorrectAnswer": false
+            },
+            {
+              "letter": "B",
+              "text": "Buddha",
+              "isCorrectAnswer": false
+            },
+            {
+              "letter": "C",
+              "text": "Mohammad",
+              "isCorrectAnswer": false
+            },
+            {
+              "letter": "D",
+              "text": "Krishna",
+              "isCorrectAnswer": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Tufting Plants": {
+
+  },
+  "Small Climbers": {
+
+  },
+  "Shade & Feature Trees": {
+
+  },
+  "Medium Shrubs": {
+
+  }
+}
