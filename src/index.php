@@ -1,6 +1,16 @@
 <?php
 require_once ("config.php");
 
+/* If the cookie is set, and we are not going to a category page then: */
+if (isset($_COOKIE['username']) && !isset($_GET['cat'])) {
+    header('Location: /index.php?cat=home');
+}
+
+/* If the ckie is not set and we are just also not going to a category page: */
+if (!isset($_COOKIE['username']) && !isset($_GET['cat'])) {
+    header("Location: /index.php?cat=name");
+}
+
 ?>
 <!doctype html>
 <html lang="en" class="h-100">
@@ -19,6 +29,9 @@ require_once ("config.php");
     <!-- Fontawesome -->
     <link href="css/all.min.css" rel="stylesheet">
 
+    <!-- LightBox -->
+    <link href="css/lightbox.min.css" rel="stylesheet">
+
     <!-- For Animations -->
     <link href="css/animate.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,12 +48,17 @@ require_once ("config.php");
     <meta name="theme-color" content="#7952b3">-->
 
     <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/loadingoverlay.min.js"></script>
+    <script src="js/lightbox.min.js"></script>
+    <script src="js/jquery-jvectormap-1.1.1.min.js"></script>
+    <script src="js/jquery-jvectormap-au-merc.js"></script>
     <!-- Our custom JS -->
-    <script src="js/main.js"></script>
+    <script src="js/main.js?version=16"></script>
 
     <!-- Custom styles-->
-    <link href="css/main.css?version=3" rel="stylesheet">
+    <link href="css/main.css?version=20" rel="stylesheet">
 </head>
 <body class="d-flex flex-column h-100">
 <?php include("header.php") ?>
@@ -49,6 +67,18 @@ require_once ("config.php");
     <div class="container">
     <?php if(isset($_GET['cat']) && $_GET['cat'] == 'name'): ?>
        <?php include("name.php") ?>
+    <?php endif; ?>
+    <?php if(isset($_GET['cat']) && $_GET['cat'] == 'home'): ?>
+        <?php include("home.php") ?>
+    <?php endif; ?>
+    <?php if(isset($_GET['cat']) && $_GET['cat'] == 'study'): ?>
+        <?php include("study.php") ?>
+    <?php endif; ?>
+    <?php if(isset($_GET['cat']) && $_GET['cat'] == 'study_categories'): ?>
+        <?php include("study_category.php") ?>
+    <?php endif; ?>
+    <?php if(isset($_GET['cat']) && $_GET['cat'] == 'module_quiz'): ?>
+        <?php include("module_quiz.php") ?>
     <?php endif; ?>
     </div>
 </main>
@@ -61,9 +91,13 @@ require_once ("config.php");
 
 </body>
 <script>
-    $('#toggle').click(function() {
-        $(this).toggleClass('active');
-        $('#overlay').toggleClass('open');
+    $(document).ready(function() {
+       initMenuCardHover();
+
+        $('#toggle').click(function() {
+            $(this).toggleClass('active');
+            $('#overlay').toggleClass('open');
+        });
     });
 </script>
 </html>

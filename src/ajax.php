@@ -33,6 +33,8 @@ switch($action) {
         if($userService->saveName($name)) {
             $resp['message'] = 'Name has saves successfully';
             $resp['code'] = 200;
+            /* set cookie to expire in 30 days*/
+            setcookie("username", $name, time()+3600*24*30);
         } else {
             $resp['message'] = 'Unable to save name. Try again later.';
             $resp['code'] = 500;

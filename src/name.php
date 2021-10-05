@@ -31,6 +31,7 @@
     var isNameValid = false;
 
     $(document).ready(function() {
+        initLoadingOverlay();
 
         function disableOrEnableButton() {
             /* Enable the button */
@@ -43,27 +44,31 @@
 
         $('#name-form').submit(function(e) {
             e.preventDefault();
+            $.LoadingOverlay("show");
+            setTimeout(function() {
+                $.post("ajax.php",
+                    {
+                        action: 'submit_name',
+                        name: $('#name').val()
+                    },
+                    function (resp, status, xhr) {
 
-            $.post("ajax.php",
-                {
-                    action: 'submit_name',
-                    name: $('#name').val()
-                },
-                function (resp, status, xhr) {
-
-                    if (resp.code == 200) {
-                        console.log(resp);
-                        window.location = "/index.php";
-                    } else {
-                        $('#validateNameValidFeedback').addClass("d-none");
-                        $('#validateNameInValidFeedback').html("An error occured, try again.");
-                        $('#validateNameInValidFeedback').removeClass("d-none");
-                        restartAnimation('#name-card-wrapper',"animate__animated animate__shakeX");
+                        if (resp.code == 200) {
+                            $.LoadingOverlay("hide");
+                            window.location = "/index.php";
+                        } else {
+                            $('#validateNameValidFeedback').addClass("d-none");
+                            $('#validateNameInValidFeedback').html("An error occured, try again.");
+                            $('#validateNameInValidFeedback').removeClass("d-none");
+                            restartAnimation('#name-card-wrapper',"animate__animated animate__shakeX");
+                        }
                     }
-                }
-            ).fail(function (xhr, status, error) {
-                alert("Something went wrong: " + error);
-            });
+                ).fail(function (xhr, status, error) {
+                    alert("Something went wrong: " + error);
+                });
+            }, 7000);
+
+
 
         })
         $( "#name" ).keyup(function() {
