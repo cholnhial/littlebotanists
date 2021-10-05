@@ -30,6 +30,23 @@ class UserService
     }
 
     /**
+     *  Returns all the users along with scores
+     */
+    public function getUsers() {
+        global $databaseHandle;
+        $stmt = $databaseHandle->prepare("SELECT * FROM users ORDER BY score DESC");
+        $stmt->execute();
+        $users = array();
+        $count = 1;
+        while($user = $stmt->fetch()) {
+            $users[$count] = $user;
+            $count++;
+        }
+
+        return $users;
+    }
+
+    /**
      *
      * Saves the username to the database
      *

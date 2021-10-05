@@ -80,6 +80,9 @@ if (!isset($_COOKIE['username']) && !isset($_GET['cat'])) {
     <?php if(isset($_GET['cat']) && $_GET['cat'] == 'module_quiz'): ?>
         <?php include("module_quiz.php") ?>
     <?php endif; ?>
+    <?php if(isset($_GET['cat']) && $_GET['cat'] == 'leaderboard'): ?>
+        <?php include("leaderboard.php") ?>
+    <?php endif; ?>
     </div>
 </main>
 
