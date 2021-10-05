@@ -48,4 +48,27 @@ class UserService
        return true;
     }
 
+    /**
+     * Saves the user score to the database if the user exists
+     *
+     * @param $name
+     * @param $score
+     * @return bool
+     */
+    public function updateUserScore($name, $score) {
+        global $databaseHandle;
+
+        $stmt = $databaseHandle->prepare("SELECT * FROM users WHERE name=:name");
+        $stmt->execute(['name' => $name]);
+        $user = $stmt->fetch();
+
+        $sql = "UPDATE users SET score=? WHERE `name`=?";
+        $stmt = $databaseHandle->prepare($sql);
+        if(!$stmt->execute([$user['score'] + $score,  $name])) {
+            return false;
+        }
+
+        return true;
+    }
+
 }

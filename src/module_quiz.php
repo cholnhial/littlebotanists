@@ -473,6 +473,24 @@ $module = $_GET['module'];
 
     initiateGame();
 
+    function updateUserScoreOnServer() {
+        $.ajax({
+            url: '/ajax.php',
+            contentType: 'application/json',
+            data: JSON.stringify({'action': 'update_score', "name": "<?= $_COOKIE['username'] ?>", "score": userGameScore }),
+            dataType: 'json',
+            success: function(data){
+
+            },
+            error: function(){
+                //TODO handle error
+            },
+            processData: false,
+            type: 'POST',
+
+        });
+    }
+
    async function initiateGame() {
         let questions = await getGameTypeQuestions('dnd-match-pic-to-name');
         var questionsArr = [];
@@ -577,6 +595,7 @@ $module = $_GET['module'];
             $('#end-user-score').html(userGameScore);
             $('#global-score').addClass('d-none');
 
+            updateUserScoreOnServer();
             /*playAgainBtn.style.display = "block";
             setTimeout(() => {
                 playAgainBtn.classList.add("play-again-btn-entrance");

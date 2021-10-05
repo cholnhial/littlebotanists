@@ -7,7 +7,13 @@ $resp = array("message" => "unrecognised action", "code" => 400, "data" => "");
 // Send the output out as JSON
 header('Content-Type: application/json');
 
-switch($_POST['action']) {
+$json = file_get_contents('php://input');
+$data = json_decode($json);
+
+// Whether action request action is from JSON body or traditional post data
+$action = isset($data->action) ? $data->action : $_POST['action'];
+
+switch($action) {
     case 'validate_name':
             $name = $_POST['name'];
             if($userService->isNameTaken($name)) {
@@ -35,6 +41,16 @@ switch($_POST['action']) {
             http_response_code(500);
         }
 
+        break;
+    case "update_score":
+        if($userService->updateUserScore($data->name, $data->score)) {
+            $resp['message'] = 'Score has been successfully updated';
+            $resp['code'] = 200;
+        } else {
+            $resp['message'] = 'Unable to update score. Try again later.';
+            $resp['code'] = 500;
+            http_response_code(500);
+        }
         break;
 
     default:
