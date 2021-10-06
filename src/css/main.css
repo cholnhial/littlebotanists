@@ -241,3 +241,20 @@ main > .container {
     background-color: rgba(255, 255, 255, 0.5);
     padding: 8px;
 }
+
+.text-patrick-hand {
+    font-family: 'Patrick Hand', cursive;
+}
+
+.leaderboard-position {
+    font-size: 25px;
+}
+
+.leaderboard-name {
+    font-size: 20px;
+}
+
+.leaderboard-score {
+    font-weight: bold;
+    font-size: 30px;
+}

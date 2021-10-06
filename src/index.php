@@ -55,7 +55,7 @@ if (!isset($_COOKIE['username']) && !isset($_GET['cat'])) {
     <script src="js/jquery-jvectormap-1.1.1.min.js"></script>
     <script src="js/jquery-jvectormap-au-merc.js"></script>
     <!-- Our custom JS -->
-    <script src="js/main.js?version=25"></script>
+    <script src="js/main.js?version=26"></script>
 
     <!-- Custom styles-->
     <link href="css/main.css?version=21" rel="stylesheet">

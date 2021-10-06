@@ -16,13 +16,13 @@ $users = $userService->getUsers();
     <div class="card-body">
         <div class="row">
             <div class="col-2">
-                <?= $position ?>
+                <span class="text-patrick-hand leaderboard-position"><?= $position ?></span>
             </div>
             <div class="col-6">
-                <?= $user['name']?>
+                <span class="text-patrick-hand leaderboard-name"><?= $user['name']?></span>
             </div>
             <div class="col-4 text-right">
-                <?= $user['score']?>
+                <span class="text-patrick-hand leaderboard-score"><?= $user['score']?></span>
             </div>
         </div>
     </div>
