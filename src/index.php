@@ -55,10 +55,10 @@ if (!isset($_COOKIE['username']) && !isset($_GET['cat'])) {
     <script src="js/jquery-jvectormap-1.1.1.min.js"></script>
     <script src="js/jquery-jvectormap-au-merc.js"></script>
     <!-- Our custom JS -->
-    <script src="js/main.js?version=16"></script>
+    <script src="js/main.js?version=25"></script>
 
     <!-- Custom styles-->
-    <link href="css/main.css?version=20" rel="stylesheet">
+    <link href="css/main.css?version=21" rel="stylesheet">
 </head>
 <body class="d-flex flex-column h-100">
 <?php include("header.php") ?>
