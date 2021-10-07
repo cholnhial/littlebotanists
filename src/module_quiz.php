@@ -301,6 +301,43 @@ $module = $_GET['module'];
 </div>
 <!-- End Drag & Drop -->
 
+<div class="spelling-container mx-auto d-none">
+
+    <div class="mx-auto">
+        <div class="mx-auto" style="width: 30rem">
+            <h2 class="text-center text-patrick-hand mb-4">Spelling Game</h2>
+            <h6 class="text-center text-patrick-hand">Spell the word that you hear</h6>
+            <div onclick="spellingGamePlayAudio()" class="card menu-card mx-auto mb-5" style="width: 12rem">
+                <div class="card-body text-center">
+                    <h6 class="text-patrick-hand">Click to play sound</h6>
+                    <i class="far fa-3x fa-file-audio"></i>
+                </div>
+            </div>
+        </div>
+        <div class="mx-auto text-center" style="width: 30rem">
+            <div id="spelling-correct" class="d-none">
+                <i class="far fa-2x text-success fa-check-circle"></i>
+                <h6>Well Done <?= $_COOKIE['username'] ?></h6>
+            </div>
+            <div id="spelling-wrong" class="d-none">
+                <i class="far fa-2x text-danger fa-cross"></i>
+                <h6>Sorry that was wrong, try again.</h6>
+            </div>
+        </div>
+        <div class="mx-auto" style="width: 30rem">
+            <input id="spelling-input" class="form-control w-100 form-control-lg" />
+        </div>
+        <div class="mx-auto" style="width: 30rem">
+            <div class="btn-group">
+                <button id="spelling-game-submit" class="btn rounded btn-outline-primary">Submit</button>
+                <button id="spelling-game-next" class="btn rounded btn-outline-success d-none">Next</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
 <!-- Score -->
 <div class="score-container d-none text-center">
     <div class="text-center" style="margin-top: 12%">
@@ -343,7 +380,10 @@ $module = $_GET['module'];
     var userGameScore = 0;
     var questionsMCQ = null;
     var nextQuestionMCQ = 0;
+    var nextQuestionSpellingGame = 0;
+    var questionsSpellingGame = null;
     var MCQDone = false;
+    var spellingGameDone = false;
 
    async function getGameTypeQuestions(type) {
         return fetch('/data/module-quiz.json')
@@ -381,6 +421,38 @@ $module = $_GET['module'];
         displayQuestionMCQ(questionsMCQ[0], 0);
     }
 
+    async function initSpellingGame() {
+       questionsSpellingGame = await getGameTypeQuestions("spelling-game");
+    }
+
+    function showSpellingGameFeedback() {
+           let userSpelling = $('#spelling-input').val();
+
+           let isCorrect = userSpelling.toLocaleLowerCase() ===
+               questionsSpellingGame[nextQuestionSpellingGame].word.toLocaleLowerCase();
+
+           if(isCorrect) {
+                $('#spelling-correct').removeClass('d-none');
+                $('#spelling-wrong').addClass('d-none')
+               $('#spelling-game-submit').addClass('d-none');
+               $('#spelling-game-next').removeClass('d-none');
+
+
+           } else {
+               $('#spelling-wrong').removeClass('d-none');
+               $('#spelling-correct').addClass('d-none');
+           }
+    }
+
+    function spellingGamePlayAudio() {
+        tts = new SpeechSynthesisUtterance();
+        tts.text = questionsSpellingGame[nextQuestionSpellingGame].word;
+        window.speechSynthesis.speak(tts);
+    }
+
+
+
+
     function goToNextMCQQuestion() {
         nextQuestionMCQ++;
         if(nextQuestionMCQ == questionsMCQ.length) {
@@ -404,6 +476,22 @@ $module = $_GET['module'];
         $('#skip-mcq-question').click(function(){
             goToNextMCQQuestion();
         });
+
+        $('#spelling-game-next').click(function() {
+            $('#spelling-correct').addClass('d-none');
+            $('#spelling-game-submit').removeClass('d-none');
+            if (nextQuestionSpellingGame < questionsSpellingGame.length) {
+                nextQuestionSpellingGame++;
+                $('#spelling-game-next').addClass('d-none');
+            } else {
+                spellingGameDone = true;
+            }
+        });
+
+        $('#spelling-game-submit').click(function() {
+            showSpellingGameFeedback();
+        });
+
 
         $('#submit-mcq-question').click(function() {
             let answerIndex = $('input[type="radio"][name="choice"]:checked').val();
@@ -589,13 +677,16 @@ $module = $_GET['module'];
             scoreSection.style.opacity = 1;
         }, 200);
         if(correct===Math.min(totalMatchingPairs, totalDraggableItems)) { // Game Over!!
-
-            $(".dnd-match-pic-to-name-container").addClass('d-none');
-            $('.score-container').removeClass('d-none');
+           /* $('.score-container').removeClass('d-none');
             $('#end-user-score').html(userGameScore);
-            $('#global-score').addClass('d-none');
+            $('#global-score').addClass('d-none'); */
 
-            updateUserScoreOnServer();
+            // Go bring up spelling game
+            $(".dnd-match-pic-to-name-container").addClass('d-none');
+            $('.spelling-container').removeClass('d-none');
+            initSpellingGame();
+
+            //updateUserScoreOnServer();
             /*playAgainBtn.style.display = "block";
             setTimeout(() => {
                 playAgainBtn.classList.add("play-again-btn-entrance");
