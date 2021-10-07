@@ -383,7 +383,6 @@ $module = $_GET['module'];
     var nextQuestionSpellingGame = 0;
     var questionsSpellingGame = null;
     var MCQDone = false;
-    var spellingGameDone = false;
 
    async function getGameTypeQuestions(type) {
         return fetch('/data/module-quiz.json')
@@ -470,6 +469,13 @@ $module = $_GET['module'];
         initMCQ();
     }
 
+    function endQuiz() {
+       $('.spelling-container').addClass('d-none');
+       $('.score-container').removeClass('d-none');
+       $('#end-user-score').html(userGameScore);
+       $('#global-score').addClass('d-none');
+    }
+
     $(document).ready(function(){
 
         beginGame();
@@ -486,7 +492,7 @@ $module = $_GET['module'];
                 nextQuestionSpellingGame++;
                 $('#spelling-game-next').addClass('d-none');
             } else {
-                spellingGameDone = true;
+                endQuiz();
             }
         });
 
@@ -537,16 +543,8 @@ $module = $_GET['module'];
                });
            });
 
-        function endQuiz
-   () {
-   
-       /* $('.score-container').r
-        $('')emlass('d-none');
-       $('#end-user-score').html(user);
-       $('#global-score').addClass('d-none'); */
-        }       /* End sthe Game 
-    }
-    
+        });*/
+    });
     
     /**
      *  Obtained from https://codepen.io/PortSpasy/pen/MWwaooJ
@@ -688,7 +686,7 @@ $module = $_GET['module'];
             scoreSection.style.opacity = 1;
         }, 200);
         if(correct===Math.min(totalMatchingPairs, totalDraggableItems)) { // Game Over!!
-        
+
 
             // Go bring up spelling game
             $(".dnd-match-pic-to-name-container").addClass('d-none');
@@ -699,9 +697,9 @@ $module = $_GET['module'];
             /*playAgainBtn.style.display = "block";
             setTimeout(() => {
                 playAgainBtn.classList.add("play-again-btn-entrance");
-            },
-    
-    end
+            }, 200)*/;
+        }
+    }
 
     // Other Event Listeners
     playAgainBtn.addEventListener("click", playAgainBtnClick);
