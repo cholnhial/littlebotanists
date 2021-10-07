@@ -423,6 +423,7 @@ $module = $_GET['module'];
 
     async function initSpellingGame() {
        questionsSpellingGame = await getGameTypeQuestions("spelling-game");
+       questionsSpellingGame = generateRandomItemsArray(questionsSpellingGame.length, questionsSpellingGame);
     }
 
     function showSpellingGameFeedback() {
@@ -536,9 +537,17 @@ $module = $_GET['module'];
                });
            });
 
-        });*/
-    });
-
+        function endQuiz
+   () {
+   
+       /* $('.score-container').r
+        $('')emlass('d-none');
+       $('#end-user-score').html(user);
+       $('#global-score').addClass('d-none'); */
+        }       /* End sthe Game 
+    }
+    
+    
     /**
      *  Obtained from https://codepen.io/PortSpasy/pen/MWwaooJ
      *  Slightly modified 
@@ -562,6 +571,7 @@ $module = $_GET['module'];
 
     initiateGame();
 
+    
     function updateUserScoreOnServer() {
         $.ajax({
             url: '/ajax.php',
@@ -678,9 +688,7 @@ $module = $_GET['module'];
             scoreSection.style.opacity = 1;
         }, 200);
         if(correct===Math.min(totalMatchingPairs, totalDraggableItems)) { // Game Over!!
-           /* $('.score-container').removeClass('d-none');
-            $('#end-user-score').html(userGameScore);
-            $('#global-score').addClass('d-none'); */
+        
 
             // Go bring up spelling game
             $(".dnd-match-pic-to-name-container").addClass('d-none');
@@ -691,9 +699,9 @@ $module = $_GET['module'];
             /*playAgainBtn.style.display = "block";
             setTimeout(() => {
                 playAgainBtn.classList.add("play-again-btn-entrance");
-            }, 200)*/;
-        }
-    }
+            },
+    
+    end
 
     // Other Event Listeners
     playAgainBtn.addEventListener("click", playAgainBtnClick);
