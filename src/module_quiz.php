@@ -480,6 +480,7 @@ $module = $_GET['module'];
         $('#spelling-game-next').click(function() {
             $('#spelling-correct').addClass('d-none');
             $('#spelling-game-submit').removeClass('d-none');
+            $('#spelling-input').val("");
             if (nextQuestionSpellingGame < questionsSpellingGame.length) {
                 nextQuestionSpellingGame++;
                 $('#spelling-game-next').addClass('d-none');
