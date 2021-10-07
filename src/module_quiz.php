@@ -327,7 +327,7 @@ $module = $_GET['module'];
         <div class="mx-auto" style="width: 30rem">
             <input id="spelling-input" class="form-control w-100 form-control-lg" />
         </div>
-        <div class="mx-auto mb-4" style="width: 30rem">
+        <div class="mx-auto mt-4 d-flex justify-content-end" style="width: 30rem">
             <div class="btn-group float-right">
                 <button id="spelling-game-submit" class="btn rounded btn-outline-primary">Submit</button>
                 <button id="spelling-game-next" class="btn rounded btn-outline-success d-none">Next</button>
