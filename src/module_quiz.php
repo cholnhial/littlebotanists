@@ -320,7 +320,7 @@ $module = $_GET['module'];
                 <h6>Well Done <?= $_COOKIE['username'] ?></h6>
             </div>
             <div id="spelling-wrong" class="d-none">
-                <i class="far fa-2x text-danger fa-cross"></i>
+                <i class="far fa-2x text-danger fa-exclamation-circle"></i>
                 <h6>Sorry that was wrong, try again.</h6>
             </div>
         </div>
