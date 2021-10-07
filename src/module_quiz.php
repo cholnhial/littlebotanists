@@ -272,7 +272,7 @@ $module = $_GET['module'];
 /* End Draggable */
 </style>
 
-<h3 id="global-score" class="float-end">Score: <span id="user-score"></span></h3>
+<h3 id="global-score" class="float-end text-patrick-hand">Score: <span id="user-score"></span></h3>
 <!-- Start Area for MCQ -->
 <div class="mcq-container">
     <h3 id="mcq-question" class="my-4 text-center">Who was the last one to die in Star Wars?</h3>
@@ -331,6 +331,7 @@ $module = $_GET['module'];
             <div class="btn-group float-right">
                 <button id="spelling-game-submit" class="btn rounded btn-outline-primary">Submit</button>
                 <button id="spelling-game-next" class="btn rounded btn-outline-success d-none">Next</button>
+                <button id="spelling-game-finish" class="btn rounded btn-outline-success d-none">Finish</button>
             </div>
         </div>
 
@@ -383,6 +384,7 @@ $module = $_GET['module'];
     var nextQuestionSpellingGame = 0;
     var questionsSpellingGame = null;
     var MCQDone = false;
+    var spellingGameDone = false;
 
    async function getGameTypeQuestions(type) {
         return fetch('/data/module-quiz.json')
@@ -433,13 +435,15 @@ $module = $_GET['module'];
 
            if(isCorrect) {
                 $('#spelling-correct').removeClass('d-none');
+                restartAnimation('#spelling-correct', 'animate__animated animate__flash');
                 $('#spelling-wrong').addClass('d-none')
                $('#spelling-game-submit').addClass('d-none');
                $('#spelling-game-next').removeClass('d-none');
-
+                userGameScore += 10;
 
            } else {
                $('#spelling-wrong').removeClass('d-none');
+               restartAnimation('#spelling-wrong', 'animate__animated animate__flash');
                $('#spelling-correct').addClass('d-none');
            }
     }
@@ -474,6 +478,7 @@ $module = $_GET['module'];
        $('.score-container').removeClass('d-none');
        $('#end-user-score').html(userGameScore);
        $('#global-score').addClass('d-none');
+       updateUserScoreOnServer();
     }
 
     $(document).ready(function(){
@@ -491,13 +496,28 @@ $module = $_GET['module'];
             if (nextQuestionSpellingGame < questionsSpellingGame.length) {
                 nextQuestionSpellingGame++;
                 $('#spelling-game-next').addClass('d-none');
+
+                // On last question
+                if (nextQuestionSpellingGame+1 === questionsSpellingGame.length) {
+                  spellingGameDone = true;
+                }
             } else {
-                endQuiz();
+                // do nothing
             }
         });
 
         $('#spelling-game-submit').click(function() {
             showSpellingGameFeedback();
+            if (spellingGameDone) {
+                $('#spelling-input').val("");
+                $('#spelling-game-next').addClass('d-none');
+                $('#spelling-game-submit').addClass('d-none');
+                $('#spelling-game-finish').removeClass('d-none');
+            }
+        });
+
+        $('#spelling-game-finish').click(function() {
+           endQuiz();
         });
 
 
