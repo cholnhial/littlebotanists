@@ -8,7 +8,7 @@ $userService = new UserService();
 $users = $userService->getUsers();
 ?>
 
-<h2 class="text-center">Quiz Leaderboard</h2>
+<h2 class="text-center text-patrick-hand">Quiz Leaderboard</h2>
 
 <div class="mt-5">
 <?php foreach($users as $position=>$user){ ?>

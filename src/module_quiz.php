@@ -4,6 +4,12 @@ $module = $_GET['module'];
 ?>
 
 <style>
+
+    a:hover,
+    a:visited,
+    a:focus
+    {text-decoration: none !important;}
+
     /**
 
     Obtained from, and slightly modified
@@ -169,35 +175,6 @@ $module = $_GET['module'];
         position: relative;
         transition: opacity 0.2s;
     }
-    #play-again-btn {
-        position: absolute;
-        top: -0.5rem;
-        left: 50%;
-        margin-left: -50px;
-        font-size: 1rem;
-        font-weight: bold;
-        color: #fff;
-        background-color: #111;
-        border: 5px double #fff;
-        border-radius: 14px;
-        padding: 8px 10px;
-        outline: none;
-        letter-spacing: .05em;
-        cursor: pointer;
-        display: none;
-        opacity: 0;
-        transition: opacity 0.5s, transform 0.5s, background-color 0.2s;
-    }
-    #play-again-btn:hover {
-        background-color: #333;
-    }
-    #play-again-btn:active {
-        background-color: #555;
-    }
-    #play-again-btn.play-again-btn-entrance {
-        opacity: 1;
-        transform: translateX(6rem);
-    }
     .draggable-items {
         display: flex;
         justify-content: center;
@@ -266,8 +243,6 @@ $module = $_GET['module'];
 
     @media (max-width: 600px) {
         html { font-size: 14px; }
-        #play-again-btn { top: -0.4rem; }
-        #play-again-btn.play-again-btn-entrance { transform: translateX(7rem); }
     }
 /* End Draggable */
 </style>
@@ -275,7 +250,23 @@ $module = $_GET['module'];
 <h3 id="global-score" class="float-end text-patrick-hand">Score: <span id="user-score"></span></h3>
 <!-- Start Area for MCQ -->
 <div class="mcq-container">
-    <h3 id="mcq-question" class="my-4 text-center">Who was the last one to die in Star Wars?</h3>
+    <h3 id="mcq-question" class="my-4 text-center">Loading...</h3>
+    <div class="mx-auto text-center my-5">
+        <div id="mcq-answer-correct" style="width: 15rem" class="mx-auto d-none">
+            <div class="card shadow-sm p-3" >
+                <h5>Correct!</h5>
+                <i class="far fa-2x text-success fa-check-circle"></i>
+                <h6>Well Done <?= $_COOKIE['username'] ?></h6>
+            </div>
+        </div>
+        <div id="mcq-answer-wrong" style="width: 15rem" class="mx-auto d-none">
+            <div class="card shadow-sm p-3" >
+                <h5>Almost got it!</h5>
+                <i class="far fa-2x text-danger fa-times-circle"></i>
+                <h6>Sorry that was wrong, good luck for the next one.</h6>
+            </div>
+        </div>
+    </div>
     <div class="row row-cols-sm-2" id="mcq-choices">
     </div>
     <div class="btn-group float-end">
@@ -290,7 +281,6 @@ $module = $_GET['module'];
 <div class="dnd-match-pic-to-name-container d-none">
     <section class="score">
         <span class="correct">0</span>/<span class="total">0</span>
-        <button id="play-again-btn">Play Again</button>
     </section>
     <section class="draggable-items">
 
@@ -364,7 +354,7 @@ $module = $_GET['module'];
             <div class="card menu-card">
                 <div class="card-body text-center">
                     <h2>Leadership Board</h2>
-                    <i class="far fa-3x fa-chart-line"></i>
+                    <i class="fas fa-3x fa-chart-line"></i>
                 </div>
             </div>
             </a>
@@ -379,7 +369,6 @@ $module = $_GET['module'];
 
 
 <script>
-
     var userGameScore = 0;
     var questionsMCQ = null;
     var nextQuestionMCQ = 0;
@@ -403,10 +392,16 @@ $module = $_GET['module'];
     }
 
     function displayQuestionMCQ(question) {
-        $('#mcq-question').html(question.question);
-        $('#mcq-choices').html('');
-        question.answers.forEach((c,i) => {
-            $('#mcq-choices').append(`
+
+       setTimeout(function() {
+           // Hide feedbacks
+           $('#mcq-answer-correct').addClass('d-none');
+           $('#mcq-answer-wrong').addClass('d-none');
+
+           $('#mcq-question').html(question.question);
+           $('#mcq-choices').html('');
+           question.answers.forEach((c,i) => {
+               $('#mcq-choices').append(`
                  <label class="quiz-card mb-2">
                     <input value=${i}  name="choice" class="radio" type="radio">
 
@@ -416,7 +411,11 @@ $module = $_GET['module'];
                  </span>
                  </label>
                `)
-        });
+           });
+
+           restartAnimation('.mcq-container', 'animate__animated animate__slideInLeft')
+       }, 2500);
+
     }
 
     async function initMCQ() {
@@ -475,6 +474,24 @@ $module = $_GET['module'];
         initMCQ();
     }
 
+    function updateUserScoreOnServer() {
+        $.ajax({
+            url: '/ajax.php',
+            contentType: 'application/json',
+            data: JSON.stringify({'action': 'update_score', "name": "<?= $_COOKIE['username'] ?>", "score": userGameScore }),
+            dataType: 'json',
+            success: function(data){
+
+            },
+            error: function(){
+                //TODO handle error
+            },
+            processData: false,
+            type: 'POST',
+
+        });
+    }
+
     function endQuiz() {
        $('.spelling-container').addClass('d-none');
        $('.score-container').removeClass('d-none');
@@ -483,15 +500,15 @@ $module = $_GET['module'];
        updateUserScoreOnServer();
     }
 
-    $(document).ready(function(){
+    $(document).ready(function() {
 
         beginGame();
 
-        $('#skip-mcq-question').click(function(){
+        $('#skip-mcq-question').click(function () {
             goToNextMCQQuestion();
         });
 
-        $('#spelling-game-next').click(function() {
+        $('#spelling-game-next').click(function () {
             $('#spelling-correct').addClass('d-none');
             $('#spelling-game-submit').removeClass('d-none');
             $('#spelling-input').val("");
@@ -500,15 +517,15 @@ $module = $_GET['module'];
                 $('#spelling-game-next').addClass('d-none');
 
                 // On last question
-                if (nextQuestionSpellingGame+1 === questionsSpellingGame.length) {
-                  spellingGameDone = true;
+                if (nextQuestionSpellingGame + 1 === questionsSpellingGame.length) {
+                    spellingGameDone = true;
                 }
             } else {
                 // do nothing
             }
         });
 
-        $('#spelling-game-submit').click(function() {
+        $('#spelling-game-submit').click(function () {
             showSpellingGameFeedback();
             if (spellingGameDone) {
                 $('#spelling-input').val("");
@@ -518,55 +535,30 @@ $module = $_GET['module'];
             }
         });
 
-        $('#spelling-game-finish').click(function() {
-           endQuiz();
+        $('#spelling-game-finish').click(function () {
+            endQuiz();
         });
 
 
-        $('#submit-mcq-question').click(function() {
+        $('#submit-mcq-question').click(function () {
             let answerIndex = $('input[type="radio"][name="choice"]:checked').val();
-            if(questionsMCQ[nextQuestionMCQ].answers[answerIndex].isCorrectAnswer) {
-                alert("Well done " + '<?= $_COOKIE['username'] ?>');
+            if (questionsMCQ[nextQuestionMCQ].answers[answerIndex].isCorrectAnswer) {
+                $('#mcq-answer-correct').removeClass('d-none');
+                restartAnimation('#mcq-answer-correct', 'animate__animated animate__flash');
+                $('#mcq-answer-wrong').addClass('d-none');
                 userGameScore += 10;
                 updateScore();
             } else {
-                alert("Wrong, you'll do better next time");
+                $('#mcq-answer-wrong').removeClass('d-none');
+                restartAnimation('#mcq-answer-wrong', 'animate__animated animate__flash');
+                $('#mcq-answer-correct').addClass('d-none');
 
             }
 
             goToNextMCQQuestion();
         });
-
-        /*fetch('/data/module-quiz.json')
-        .then(async function(resp) {
-            let gameData = await resp.json();
-            console.log(gameData);
-           mcqQuestions =  gameData['<?= $categoryType?>'].map(questionGroup => {
-               if (questionGroup.type === 'mcq') {
-                   return questionGroup;
-               }
-           })[0].questions;
-
-           console.log(mcqQuestions);
-
-           mcqQuestions.forEach(q => {
-               $('#mcq-question').html(q.question);
-               q.answers.forEach(c => {
-                   $('#mcq-choices').append(`
-                 <label class="card mb-2">
-                    <input name="choice" class="radio" type="radio" checked>
-
-                    <span class="choice-details">
-                    <span class="choice-letter">${c.letter}</span>
-                    <span class="choice-description">${c.text}</span>
-                 </span>
-                 </label>
-               `)
-               });
-           });
-
-        });*/
     });
+
     
     /**
      *  Obtained from https://codepen.io/PortSpasy/pen/MWwaooJ
@@ -591,40 +583,20 @@ $module = $_GET['module'];
 
     initiateGame();
 
-    
-    function updateUserScoreOnServer() {
-        $.ajax({
-            url: '/ajax.php',
-            contentType: 'application/json',
-            data: JSON.stringify({'action': 'update_score', "name": "<?= $_COOKIE['username'] ?>", "score": userGameScore }),
-            dataType: 'json',
-            success: function(data){
-
-            },
-            error: function(){
-                //TODO handle error
-            },
-            processData: false,
-            type: 'POST',
-
-        });
-    }
-
    async function initiateGame() {
         let questions = await getGameTypeQuestions('dnd-match-pic-to-name');
         var questionsArr = [];
         questions.forEach((o) => {
             questionsArr.push(o);
         });
-        console.log("Questions: " + questionsArr);
-        const randomDraggableBrands = generateRandomItemsArray(totalDraggableItems, questionsArr);
-        const randomDroppableBrands = totalMatchingPairs<totalDraggableItems ? generateRandomItemsArray(totalMatchingPairs, randomDraggableBrands) : randomDraggableBrands;
-        const alphabeticallySortedRandomDroppableBrands = [...randomDroppableBrands].sort((a,b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+        const randomDraggablePlants = generateRandomItemsArray(totalDraggableItems, questionsArr);
+        const randomDroppablePlants = totalMatchingPairs<totalDraggableItems ? generateRandomItemsArray(totalMatchingPairs, randomDraggablePlants) : randomDraggablePlants;
+        const alphabeticallySortedRandomDroppableBrands = [...randomDroppablePlants].sort((a,b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
 
         // Create "draggable-items" and append to DOM
-        for(let i=0; i<randomDraggableBrands.length; i++) {
+        for(let i=0; i<randomDraggablePlants.length; i++) {
             draggableItems.insertAdjacentHTML("beforeend", `
-     <img class="img-thumbnail draggable" draggable="true" src="${randomDraggableBrands[i].image}" id="${randomDraggableBrands[i].name}" />
+     <img class="img-thumbnail draggable" draggable="true" src="${randomDraggablePlants[i].image}" id="${randomDraggablePlants[i].name}" />
     `);
         }
 
@@ -707,44 +679,12 @@ $module = $_GET['module'];
             totalSpan.textContent = total;
             scoreSection.style.opacity = 1;
         }, 200);
-        if(correct===Math.min(totalMatchingPairs, totalDraggableItems)) { // Game Over!!
-
-
+        if(correct===Math.min(totalMatchingPairs, totalDraggableItems)) {
             // Go bring up spelling game
             $(".dnd-match-pic-to-name-container").addClass('d-none');
             $('.spelling-container').removeClass('d-none');
             initSpellingGame();
-
-            //updateUserScoreOnServer();
-            /*playAgainBtn.style.display = "block";
-            setTimeout(() => {
-                playAgainBtn.classList.add("play-again-btn-entrance");
-            }, 200)*/;
         }
-    }
-
-    // Other Event Listeners
-    playAgainBtn.addEventListener("click", playAgainBtnClick);
-    function playAgainBtnClick() {
-        playAgainBtn.classList.remove("play-again-btn-entrance");
-        correct = 0;
-        total = 0;
-        draggableItems.style.opacity = 0;
-        matchingPairs.style.opacity = 0;
-        setTimeout(() => {
-            scoreSection.style.opacity = 0;
-        }, 100);
-        setTimeout(() => {
-            playAgainBtn.style.display = "none";
-            while (draggableItems.firstChild) draggableItems.removeChild(draggableItems.firstChild);
-            while (matchingPairs.firstChild) matchingPairs.removeChild(matchingPairs.firstChild);
-            initiateGame();
-            correctSpan.textContent = correct;
-            totalSpan.textContent = total;
-            draggableItems.style.opacity = 1;
-            matchingPairs.style.opacity = 1;
-            scoreSection.style.opacity = 1;
-        }, 500);
     }
 
     // Auxiliary functions
