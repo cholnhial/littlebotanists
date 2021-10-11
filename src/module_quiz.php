@@ -360,12 +360,14 @@ $module = $_GET['module'];
             </a>
         </div>
         <div class="col">
+            <a class="text-decoration-none" href="index.php?cat=leaderboard">
             <div class="card menu-card">
                 <div class="card-body text-center">
                     <h2>Leadership Board</h2>
                     <i class="far fa-3x fa-chart-line"></i>
                 </div>
             </div>
+            </a>
         </div>
         <div class="col-3">
         </div>
