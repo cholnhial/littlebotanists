@@ -96,6 +96,20 @@
           "name": "Scaevola aemula"
         }
       ]
+    },
+    {
+      "type": "spelling-game",
+      "questions": [
+        {
+          "word": "Sunny"
+        },
+        {
+          "word": "Flower"
+        },
+        {
+          "word": "basket"
+        }
+      ]
     }
   ],
   "Tufting Plants": {
