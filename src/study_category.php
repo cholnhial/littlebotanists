@@ -153,7 +153,7 @@ $module = $_GET['module'];
 
            plantsGroupedByType[plantCategory.toLowerCase()].forEach((p, i) => {
                if( i === 0) {
-                  $('#plants').append(`<button data-index="${i}" class="nav-link active friendly-btn" data-bs-toggle="tab"   type="button" role="tab">${p.Species} <span class="badge bg-success">Quized</span></button>`);
+                  $('#plants').append(`<button data-index="${i}" class="nav-link active friendly-btn" data-bs-toggle="tab"   type="button" role="tab">${p.Species}</button>`);
                } else {
                    $('#plants').append(`<button data-index="${i}" class="nav-link friendly-btn" data-bs-toggle="tab"  type="button" role="tab">${p.Species}</button>`);
                }

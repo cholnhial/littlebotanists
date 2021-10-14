@@ -4,7 +4,7 @@
             <a class="text-decoration-none link-dark" href="/index.php?cat=study_categories&plantCategoryType=Groundcovers&module=Groundcovers">
                 <div class="card menu-card">
                     <div class="card-body text-center">
-                        <h2>Groundcovers</h2>
+                        <h2>Groundcovers <span class="badge bg-success">Quizzed</span></h2>
                     </div>
                 </div>
             </a>
