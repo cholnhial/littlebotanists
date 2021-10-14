@@ -39,7 +39,7 @@ if (isset($_GET['cat'])) {
             <ul class="text-start">
                 <li><a href="index.php?cat=study"><i class="fas fa-graduation-cap"></i> Study</a></li>
                 <li><a href="#"><i class="far fa-file-alt"></i> Quiz</a></li>
-                <li><a href="#"><i class="fas fa-gamepad"></i> Matching Game</a></li>
+                <li><a href="index.php?cat=matching-game"><i class="fas fa-gamepad"></i> Matching Game</a></li>
                 <li><a href="index.php?cat=leaderboard"><i class="fas fa-chart-line"></i> Leaderboard</a></li>
                 <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
             </ul>

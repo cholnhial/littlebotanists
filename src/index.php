@@ -83,6 +83,9 @@ if (!isset($_COOKIE['username']) && !isset($_GET['cat'])) {
     <?php if(isset($_GET['cat']) && $_GET['cat'] == 'leaderboard'): ?>
         <?php include("leaderboard.php") ?>
     <?php endif; ?>
+    <?php if(isset($_GET['cat']) && $_GET['cat'] == 'matching-game'): ?>
+        <?php include("matching-game.php") ?>
+    <?php endif; ?>
     </div>
 </main>
 
