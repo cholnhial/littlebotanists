@@ -13,6 +13,8 @@
 let card = null;
 let cards = null;
 
+let gameFinishCallBack = null;
+
 // deck of all cards in game
 let deck = null;
 
@@ -64,7 +66,7 @@ function shuffle(array) {
 
 
 // @description function to start a new play
-function startGame(){
+function startGame(finishCallBack){
 
      card = document.getElementsByClassName("card");
      cards = [...card];
@@ -118,6 +120,7 @@ function startGame(){
     var timer = document.querySelector(".timer");
     timer.innerHTML = "0 mins 0 secs";
     clearInterval(interval);
+    gameFinishCallBack = finishCallBack;
 }
 
 
@@ -259,19 +262,10 @@ function congratulations(){
         document.getElementById("totalTime").innerHTML = finalTime;
         var audio = new Audio('/data/winner.flac');
         audio.play();
-        //closeicon on modal
-        closeModal();
+        gameFinishCallBack();
     };
 }
 
-
-// @description close icon on modal
-function closeModal(){
-    closeicon.addEventListener("click", function(e){
-        modal.hide();
-        startGame();
-    });
-}
 
 
 // @desciption for user to play Again

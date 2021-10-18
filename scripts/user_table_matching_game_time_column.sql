@@ -1,0 +1,1 @@
+ALTER TABLE users ADD COLUMN best_matching_game_time INT DEFAULT 0 AFTER score;

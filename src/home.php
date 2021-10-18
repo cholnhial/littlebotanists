@@ -21,53 +21,59 @@
 
 </style>
 <img class="cool-sun" src="/img/cool-sun.png?version=1">
-<div class="text-center" style="margin-top: -6%; margin-left: 29%">
-    <img class="lblogo" src="img/Logo.png" alt="logo"/>
-    <div class="transparent-panel">
-        <p class="my-0 mx-0">Welcome to Little Botanists <?= $_COOKIE['username'] ?></p>
-        <p class="my-0 mx-0">Here you can learn everything there is to know about Australia's amazing plants!</p>
-        <p class="my-0 mx-0">Do you think you have what it takes to become a Little Botanist?</p>
-        <p class="my-0 mx-0">Study and quiz your knowledge, competing against your friends and enemies</p>
+<div class="mt-">
+    <div class="text-center" style="margin-top: -6%; margin-left: 29%">
+        <img class="lblogo" src="img/Logo.png" alt="logo"/>
+        <div class="transparent-panel">
+            <p class="my-0 mx-0">Welcome to Little Botanists <?= $_COOKIE['username'] ?></p>
+            <p class="my-0 mx-0">Here you can learn everything there is to know about Australia's amazing plants!</p>
+            <p class="my-0 mx-0">Do you think you have what it takes to become a Little Botanist?</p>
+            <p class="my-0 mx-0">Study and quiz your knowledge, competing against your friends and enemies</p>
+        </div>
     </div>
-</div>
 
-<div  style="margin-top: 22rem">
-    <div class="row">
-        <div class="col">
-            <a class="text-decoration-none" href="index.php?cat=study">
+    <div  style="margin-top: 22rem">
+        <div class="row">
+            <div class="col">
+                <a class="text-decoration-none" href="index.php?cat=study">
+                    <div class="card home-menu-card opacity-75">
+                        <div class="card-body text-center">
+                            <h6>Study</h6>
+                            <i class="fas fa-3x fa-graduation-cap"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a class="text-decoration-none" href="index.php?cat=module_quiz&module=Groundcovers&plantCategoryType=Groundcovers">
                 <div class="card home-menu-card opacity-75">
                     <div class="card-body text-center">
-                        <h6>Study</h6>
-                        <i class="fas fa-3x fa-graduation-cap"></i>
+                        <h6>Quiz</h6>
+                        <i class="far fa-3x fa-file-alt"></i>
                     </div>
                 </div>
-            </a>
-        </div>
-        <div class="col">
-            <div class="card home-menu-card opacity-75">
-                <div class="card-body text-center">
-                    <h6>Quiz</h6>
-                    <i class="far fa-3x fa-file-alt"></i>
-                </div>
+                </a>
             </div>
-        </div>
-        <div class="col">
-            <div class="card home-menu-card opacity-75">
-                <div class="card-body text-center">
-                    <h6>Matching Game</h6>
-                    <i class="fas fa-3x fa-gamepad"></i>
-                </div>
+            <div class="col">
+                <a class="text-decoration-none" href="index.php?cat=matching-game">
+                    <div class="card home-menu-card opacity-75">
+                        <div class="card-body text-center">
+                            <h6>Matching Game</h6>
+                            <i class="fas fa-3x fa-gamepad"></i>
+                        </div>
+                    </div>
+                </a>
             </div>
-        </div>
-        <div class="col">
-            <a class="text-decoration-none" href="index.php?cat=leaderboard">
-            <div class="card home-menu-card opacity-75">
-                <div class="card-body text-center">
-                    <h6>Leadership Board</h6>
-                    <i class="fas fa-3x fa-chart-line"></i>
-                </div>
+            <div class="col">
+                <a class="text-decoration-none" href="index.php?cat=leaderboard">
+                    <div class="card home-menu-card opacity-75">
+                        <div class="card-body text-center">
+                            <h6>Leadership Board</h6>
+                            <i class="fas fa-3x fa-chart-line"></i>
+                        </div>
+                    </div>
+                </a>
             </div>
-            </a>
         </div>
     </div>
 </div>

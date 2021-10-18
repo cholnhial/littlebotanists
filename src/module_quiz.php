@@ -247,7 +247,7 @@ $module = $_GET['module'];
 /* End Draggable */
 </style>
 
-<h3 id="global-score" class="float-end text-patrick-hand">Score: <span id="user-score"></span></h3>
+<h3 id="global-score" class="float-end text-patrick-hand mt-3">Score: <span id="user-score"></span></h3>
 <!-- Start Area for MCQ -->
 <div class="mcq-container">
     <h3 id="mcq-question" class="my-4 text-center">Loading...</h3>

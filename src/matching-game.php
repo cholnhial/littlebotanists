@@ -264,7 +264,8 @@
     }
 </style>
 
-<h2 class="text-patrick-hand my-4 text-center">Matching Game</h2>
+
+<h2 class="text-patrick-hand my-4 text-center">Matching Game</h2
 <div class="matching-game-container container">
 
     <section class="score-panel">
@@ -327,6 +328,24 @@
             });
     }
 
+    function updateUserTimeOnServer(time) {
+        $.ajax({
+            url: '/ajax.php',
+            contentType: 'application/json',
+            data: JSON.stringify({'action': 'update_best_matching_game_time', "name": "<?= $_COOKIE['username'] ?>", "time": time }),
+            dataType: 'json',
+            success: function(data){
+
+            },
+            error: function(){
+                //TODO handle error
+            },
+            processData: false,
+            type: 'POST',
+
+        });
+    }
+
     async function initMatchingGame() {
         matchingGameCards = await getMatchingGameData();
         matchingGameCards = generateRandomItemsArray(matchingGameCards.length, matchingGameCards);
@@ -346,7 +365,9 @@
   `);});
 
         totalCards = matchingGameCards.length;
-        startGame();
+        startGame(() => {
+            updateUserTimeOnServer((minute * 60)+(hour*60*60)+(second));
+        });
         connectEvents();
 
 

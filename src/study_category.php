@@ -126,9 +126,6 @@ $module = $_GET['module'];
         });
     }
     $(document).ready(function() {
-
-        initLoadingOverlay();
-
         $('#tts-play').click(function(){
             if (!tts) {
                 tts = new SpeechSynthesisUtterance();

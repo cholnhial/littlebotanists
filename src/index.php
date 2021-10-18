@@ -11,6 +11,8 @@ if (!isset($_COOKIE['username']) && !isset($_GET['cat'])) {
     header("Location: /index.php?cat=name");
 }
 
+$pageTitle  = "";
+
 ?>
 <!doctype html>
 <html lang="en" class="h-100">
@@ -55,10 +57,10 @@ if (!isset($_COOKIE['username']) && !isset($_GET['cat'])) {
     <script src="js/jquery-jvectormap-1.1.1.min.js"></script>
     <script src="js/jquery-jvectormap-au-merc.js"></script>
     <!-- Our custom JS -->
-    <script src="js/main.js?version=26"></script>
+    <script src="js/main.js?version=27"></script>
 
     <!-- Custom styles-->
-    <link href="css/main.css?version=21" rel="stylesheet">
+    <link href="css/main.css?version=22" rel="stylesheet">
 </head>
 <body class="d-flex flex-column h-100">
 <?php include("header.php") ?>
@@ -66,30 +68,53 @@ if (!isset($_COOKIE['username']) && !isset($_GET['cat'])) {
 <main class="flex-shrink-0">
     <div class="container">
     <?php if(isset($_GET['cat']) && $_GET['cat'] == 'name'): ?>
+        <?php $pageTitle = "Name" ?>
        <?php include("name.php") ?>
     <?php endif; ?>
     <?php if(isset($_GET['cat']) && $_GET['cat'] == 'home'): ?>
+        <?php $pageTitle = "Home" ?>
         <?php include("home.php") ?>
     <?php endif; ?>
     <?php if(isset($_GET['cat']) && $_GET['cat'] == 'study'): ?>
+        <?php $pageTitle = "Study" ?>
         <?php include("study.php") ?>
     <?php endif; ?>
     <?php if(isset($_GET['cat']) && $_GET['cat'] == 'study_categories'): ?>
+        <?php $pageTitle = "Study Categories" ?>
         <?php include("study_category.php") ?>
     <?php endif; ?>
     <?php if(isset($_GET['cat']) && $_GET['cat'] == 'module_quiz'): ?>
+        <?php $pageTitle = "Quiz" ?>
         <?php include("module_quiz.php") ?>
     <?php endif; ?>
     <?php if(isset($_GET['cat']) && $_GET['cat'] == 'leaderboard'): ?>
+        <?php $pageTitle = "Leaderboard" ?>
         <?php include("leaderboard.php") ?>
     <?php endif; ?>
     <?php if(isset($_GET['cat']) && $_GET['cat'] == 'matching-game'): ?>
+        <?php $pageTitle = "Matching Game" ?>
         <?php include("matching-game.php") ?>
     <?php endif; ?>
     </div>
 </main>
 
 
+<div class="modal" id="helpModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="help-button-icon fa fa-question-circle"></i> <?= $pageTitle?> Help</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div id="helpContent"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary float-end" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php include("footer.php") ?>
 
@@ -98,12 +123,34 @@ if (!isset($_COOKIE['username']) && !isset($_GET['cat'])) {
 </body>
 <script>
     $(document).ready(function() {
+        init();
+
+        $('#helpButton').click(function() {
+           // $.LoadingOverlay("show");
+            $.ajax({
+                url: "help-docs/<?= $_GET['cat']?>.php",
+                context: document.body
+            }).done(function(response) {
+                $('#helpContent').html(response);
+             //   $.LoadingOverlay("hide");
+                helpModal.show();
+            });
+        })
+
        initMenuCardHover();
 
-        $('#toggle').click(function() {
-            $(this).toggleClass('active');
+        $('#toggleMenuOn').click(function() {
+            $('#toggleMenuOff').toggleClass('d-none');
+            $('#toggleMenuOff').toggleClass('active');
             $('#overlay').toggleClass('open');
+
         });
+
+        $('#toggleMenuOff').click(function() {
+            $('#toggleMenuOff').toggleClass('d-none');
+            $('#toggleMenuOff').toggleClass('active');
+            $('#overlay').toggleClass('open');
+        })
     });
 </script>
 </html>
