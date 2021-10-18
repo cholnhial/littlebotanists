@@ -11,6 +11,13 @@ function restartAnimation(element, animateClasses) {
     $(element).addClass(animateClasses);
 }
 
+var helpModal = null;
+
+function init() {
+    helpModal = new bootstrap.Modal(document.getElementById('helpModal'), {});
+    initLoadingOverlay();
+}
+
 function initLoadingOverlay() {
     $.LoadingOverlaySetup({
         image: '/svgs/LoadingFlower.svg',

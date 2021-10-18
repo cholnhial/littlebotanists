@@ -32,9 +32,9 @@ class UserService
     /**
      *  Returns all the users along with scores
      */
-    public function getUsers() {
+    public function getUsersWithScores() {
         global $databaseHandle;
-        $stmt = $databaseHandle->prepare("SELECT * FROM users ORDER BY score DESC");
+        $stmt = $databaseHandle->prepare("SELECT * FROM users WHERE score > 0 ORDER BY score DESC");
         $stmt->execute();
         $users = array();
         $count = 1;
@@ -45,6 +45,21 @@ class UserService
 
         return $users;
     }
+
+    public function getUsersWithMatchingGameTime() {
+        global $databaseHandle;
+        $stmt = $databaseHandle->prepare("SELECT * FROM users WHERE best_matching_game_time > 0 ORDER BY best_matching_game_time ASC");
+        $stmt->execute();
+        $users = array();
+        $count = 1;
+        while($user = $stmt->fetch()) {
+            $users[$count] = $user;
+            $count++;
+        }
+
+        return $users;
+    }
+
 
     /**
      *
@@ -83,6 +98,31 @@ class UserService
         $stmt = $databaseHandle->prepare($sql);
         if(!$stmt->execute([$user['score'] + $score,  $name])) {
             return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Saves the user matching game best time to the database if the user exists
+     *
+     * @param $name
+     * @param $score
+     * @return bool
+     */
+    public function updateMatchingGameTime($name, $time) {
+        global $databaseHandle;
+
+        $stmt = $databaseHandle->prepare("SELECT * FROM users WHERE name=:name");
+        $stmt->execute(['name' => $name]);
+        $user = $stmt->fetch();
+
+        $sql = "UPDATE users SET best_matching_game_time=? WHERE `name`=?";
+        $stmt = $databaseHandle->prepare($sql);
+        if($user['best_matching_game_time'] > $time) {
+            if(!$stmt->execute([$time,  $name])) {
+                return false;
+            }
         }
 
         return true;

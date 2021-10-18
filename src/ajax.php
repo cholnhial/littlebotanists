@@ -52,6 +52,16 @@ switch($action) {
             http_response_code(500);
         }
         break;
+    case "update_best_matching_game_time":
+        if($userService->updateMatchingGameTime($data->name, $data->time)) {
+            $resp['message'] = 'best time has been successfully updated';
+            $resp['code'] = 200;
+        } else {
+            $resp['message'] = 'Unable to update time for matching game. Try again later.';
+            $resp['code'] = 500;
+            http_response_code(500);
+        }
+        break;
 
     default:
         http_response_code(400);
