@@ -60,7 +60,7 @@ $pageTitle  = "";
     <script src="js/main.js?version=27"></script>
 
     <!-- Custom styles-->
-    <link href="css/main.css?version=22" rel="stylesheet">
+    <link href="css/main.css?version=23" rel="stylesheet">
 </head>
 <body class="d-flex flex-column h-100">
 <?php include("header.php") ?>

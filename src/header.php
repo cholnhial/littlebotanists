@@ -13,7 +13,7 @@ if (isset($_GET['cat'])) {
             <button class="navbar-toggler d-block me-3" id="toggleMenuOn" type="button"  aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <img class="navbar-brand" style="width: 148px; height: 48px;" src="img/Logo.png" />
+            <img class="navbar-brand" style="width: 10.5rem; height: 2rem;" src="img/Logo.png" />
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0 mx-auto">
                 </ul>
