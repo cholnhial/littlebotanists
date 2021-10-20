@@ -186,7 +186,7 @@ main > .container {
  */
 .jvectormap-container {
     background: var(--lbfithary) !important;
-    height: 448px !important;
+    height: 424px !important;
 }
 
 .jvectormap-label {
@@ -260,4 +260,12 @@ main > .container {
 
 .help-button-icon {
  color: #FDCC5A;
+}
+
+.namelogo {
+    height: 6rem;
+}
+
+.normal-font-size {
+    font-size: 1.2em;
 }
