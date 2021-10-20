@@ -65,9 +65,11 @@ $module = $_GET['module'];
                     <span class="visually-hidden">Loading...</span>
                 </div>
             </div>
+            <?php if($categoryType == 'Groundcovers'): ?>
             <div class="d-flex mt-3 justify-content-center">
                 <a href="index.php?cat=module_quiz&module=<?=$module?>&plantCategoryType=<?=$categoryType?>" class="fs-2 btn btn-outline-secondary friendly-btn text-decoration-none start-quiz-button">Start <?= $module ?> Module Quiz</a>
             </div>
+            <?php endif ; ?>
         </div>
     </div>
     <div class="col">
