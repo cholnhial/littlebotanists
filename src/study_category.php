@@ -186,15 +186,12 @@ $module = $_GET['module'];
     }
     $(document).ready(function() {
         $('#tts-play').click(function(){
-            if (!tts) {
-                tts = new SpeechSynthesisUtterance();
-            }
-            tts.text = $('#plant-description').html();
-            window.speechSynthesis.speak(tts);
+            let text = $('#plant-description').html();
+            responsiveVoice.speak(text);
         });
 
         $('#tts-stop').click(function() {
-            window.speechSynthesis.cancel();
+            responsiveVoice.cancel();
         });
 
 

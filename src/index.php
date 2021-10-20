@@ -56,6 +56,8 @@ $pageTitle  = "";
     <script src="js/lightbox.min.js"></script>
     <script src="js/jquery-jvectormap-1.1.1.min.js"></script>
     <script src="js/jquery-jvectormap-au-merc.js"></script>
+    <!-- For improved text to speed -->
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=nIDs4neg"></script>
     <!-- Our custom JS -->
     <script src="js/main.js?version=27"></script>
 

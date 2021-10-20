@@ -300,7 +300,7 @@ $module = $_GET['module'];
             <div onclick="spellingGamePlayAudio()" class="card menu-card mx-auto mb-5" style="width: 12rem">
                 <div class="card-body text-center">
                     <h6 class="text-patrick-hand">Click to play sound</h6>
-                    <i class="far fa-3x fa-file-audio"></i>
+                    <i class="fas fa-3x fa-volume-up"></i>
                 </div>
             </div>
         </div>
@@ -450,9 +450,7 @@ $module = $_GET['module'];
     }
 
     function spellingGamePlayAudio() {
-        tts = new SpeechSynthesisUtterance();
-        tts.text = questionsSpellingGame[nextQuestionSpellingGame].word;
-        window.speechSynthesis.speak(tts);
+        responsiveVoice.speak(questionsSpellingGame[nextQuestionSpellingGame].word);
     }
 
 
