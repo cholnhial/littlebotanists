@@ -15,7 +15,10 @@ $module = $_GET['module'];
         background-size: cover;
 
     }
-
+    a:hover,
+    a:visited,
+    a:focus
+    {text-decoration: none !important;}
 
     .transparent-panel {
         border: 7px solid white;
@@ -30,6 +33,11 @@ $module = $_GET['module'];
 
     .nav-link {
         color: var(--lbsecondary);
+    }
+
+    .start-quiz-button:hover {
+        background-color: var(--lbfouthary);
+        color: var(--lbfithary);
     }
 
 </style>
@@ -58,7 +66,7 @@ $module = $_GET['module'];
                 </div>
             </div>
             <div class="d-flex mt-3 justify-content-center">
-                <a href="index.php?cat=module_quiz&module=<?=$module?>&plantCategoryType=<?=$categoryType?>" class="btn btn-outline-primary friendly-btn">Start <?= $module ?> Module Quiz</a>
+                <a href="index.php?cat=module_quiz&module=<?=$module?>&plantCategoryType=<?=$categoryType?>" class="fs-2 btn btn-outline-secondary friendly-btn text-decoration-none start-quiz-button">Start <?= $module ?> Module Quiz</a>
             </div>
         </div>
     </div>

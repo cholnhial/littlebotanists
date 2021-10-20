@@ -1,21 +1,9 @@
-<h3 class="text-center">How to play the Matching Game</h3>
-<div class="overflow-scroll" style="height: 30rem">
-    <p>This is a matching memory game. The game begins with all of the cards face down. Click on a card and it will flip over, showing you a name and image. If the two cards flipped at not a match, they will both return face down. To complete the game you must match the correct cards together. Don&rsquo;t forget to use your memory to remember where each of the cards are!</p>
+<h3 class="text-center">Quiz:</h3>
+<p>Welcome to the quiz!</p>
+<p>Test your knowledge! Choose a module that you have studied to quiz yourself on. You score will be placed upon a leaderboard once you complete the quiz.</p>
+<p>There are a range of question which have been designed, hints and question skipping will be available. At the completion of the quiz, you will be ranked against others.</p>
+<p>Question style includes multiple choice, drag and drop, and audio spelling.</p>
+<p>If you have trouble answering the questions, go back and study!</p>
 
-    <p>Your time will be placed upon a leadership board once you match all the correct pairs.</p>
-    <p>This is a matching memory game. The game begins with all of the cards face down. Click on a card and it will flip over, showing you a name and image. If the two cards flipped at not a match, they will both return face down. To complete the game you must match the correct cards together. Don&rsquo;t forget to use your memory to remember where each of the cards are!</p>
 
-    <p>Your time will be placed upon a leadership board once you match all the correct pairs.</p>
-    <p>This is a matching memory game. The game begins with all of the cards face down. Click on a card and it will flip over, showing you a name and image. If the two cards flipped at not a match, they will both return face down. To complete the game you must match the correct cards together. Don&rsquo;t forget to use your memory to remember where each of the cards are!</p>
 
-    <p>Your time will be placed upon a leadership board once you match all the correct pairs.</p>
-    <p>This is a matching memory game. The game begins with all of the cards face down. Click on a card and it will flip over, showing you a name and image. If the two cards flipped at not a match, they will both return face down. To complete the game you must match the correct cards together. Don&rsquo;t forget to use your memory to remember where each of the cards are!</p>
-
-    <p>Your time will be placed upon a leadership board once you match all the correct pairs.</p>
-    <p>This is a matching memory game. The game begins with all of the cards face down. Click on a card and it will flip over, showing you a name and image. If the two cards flipped at not a match, they will both return face down. To complete the game you must match the correct cards together. Don&rsquo;t forget to use your memory to remember where each of the cards are!</p>
-
-    <p>Your time will be placed upon a leadership board once you match all the correct pairs.</p>
-    <p>This is a matching memory game. The game begins with all of the cards face down. Click on a card and it will flip over, showing you a name and image. If the two cards flipped at not a match, they will both return face down. To complete the game you must match the correct cards together. Don&rsquo;t forget to use your memory to remember where each of the cards are!</p>
-
-    <p>Your time will be placed upon a leadership board once you match all the correct pairs.</p>
-</div>
