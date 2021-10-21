@@ -35,9 +35,9 @@ $usersWithMatchingGameTime = $userService->getUsersWithMatchingGameTime();
             </div>
         </nav>
         <div class="tab-content">
-            <div class="tab-pane transparent-panel fade show active" id="nav-quiz" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="tab-pane transparent-panel fade show active overflow-scroll" style="height: 20rem" id="nav-quiz" role="tabpanel" aria-labelledby="nav-home-tab">
                 <?php foreach($usersWithQuizScore as $position=> $user){ ?>
-                    <div class="card mb-3">
+                    <div class="card mb-3" >
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-2">
@@ -54,7 +54,7 @@ $usersWithMatchingGameTime = $userService->getUsersWithMatchingGameTime();
                     </div>
                 <?php } ?>
             </div>
-            <div class="tab-pane fade transparent-panel" id="nav-matching-game" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="tab-pane fade transparent-panel  overflow-scroll" style="height: 20rem" id="nav-matching-game" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <h3 class="my-2 text-patrick-hand text-center">Best Times</h3>
                 <?php foreach($usersWithMatchingGameTime as $position=> $user){ ?>
                     <div class="card mb-3">
@@ -84,7 +84,7 @@ $usersWithMatchingGameTime = $userService->getUsersWithMatchingGameTime();
                 <div class="card home-menu-card opacity-75">
                     <div class="card-body text-center">
                         <h4>Quiz</h4>
-                        <i class="far fa-3x fa-file-alt"></i>
+                        <i class="far fa-2x fa-file-alt"></i>
                     </div>
                 </div>
             </a>
@@ -94,7 +94,7 @@ $usersWithMatchingGameTime = $userService->getUsersWithMatchingGameTime();
                 <div class="card home-menu-card opacity-75">
                     <div class="card-body text-center">
                         <h4>Study</h4>
-                        <i class="fas fa-3x fa-graduation-cap"></i>
+                        <i class="fas fa-2x fa-graduation-cap"></i>
                     </div>
                 </div>
             </a>

@@ -114,7 +114,7 @@ $module = $_GET['module'];
         $('#map-spinner').removeClass('d-none');
         $('#spinner-gallery').removeClass('d-none');
         $('#map-help').addClass('d-none');
-        $('#images').hide();
+        $('#images').addClass('d-none');
         $('#map').hide();
         let plant = plantsGroupedByType[plantCategory.toLowerCase()][$(element).data('index')];
         $('#plant-name').html(plant['Species']);
@@ -178,7 +178,7 @@ $module = $_GET['module'];
 
            // $.LoadingOverlay("hide");
             $('#map').show();
-            $('#images').hide();
+            $('#images').removeClass('d-none');
             $('#map-help').removeClass('d-none');
             $('#spinner-gallery').addClass('d-none');
             $('#map-spinner').addClass('d-none');

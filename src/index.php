@@ -12,7 +12,13 @@ if (!isset($_COOKIE['username']) && !isset($_GET['cat'])) {
 }
 
 $pageTitle  = "";
+$tabPageTitle = "";
 
+switch ($_GET['cat']) {
+    case 'name': $tabPageTitle = 'Name';
+    break;
+    default: $tabPageTitle = '-';
+}
 ?>
 <!doctype html>
 <html lang="en" class="h-100">
@@ -21,7 +27,7 @@ $pageTitle  = "";
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>LittleBotanists</title>
+    <title>LittleBotanists - <?= $tabPageTitle ?></title>
 
 
 
@@ -62,7 +68,7 @@ $pageTitle  = "";
     <script src="js/main.js?version=27"></script>
 
     <!-- Custom styles-->
-    <link href="css/main.css?version=23" rel="stylesheet">
+    <link href="css/main.css?version=24" rel="stylesheet">
 </head>
 <body class="d-flex flex-column h-100">
 <?php include("header.php") ?>
@@ -96,6 +102,10 @@ $pageTitle  = "";
     <?php if(isset($_GET['cat']) && $_GET['cat'] == 'matching-game'): ?>
         <?php $pageTitle = "Matching Game" ?>
         <?php include("matching-game.php") ?>
+    <?php endif; ?>
+    <?php if(isset($_GET['cat']) && $_GET['cat'] == 'matching-game'): ?>
+        <?php $pageTitle = "About" ?>
+        <?php include("about.php") ?>
     <?php endif; ?>
     </div>
 </main>

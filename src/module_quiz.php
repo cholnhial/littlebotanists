@@ -391,9 +391,32 @@ $module = $_GET['module'];
        $('#user-score').html(userGameScore);
     }
 
-    function displayQuestionMCQ(question) {
+    function displayQuestionMCQ(question, isSkip) {
 
-       setTimeout(function() {
+       if (!isSkip) {
+           setTimeout(function () {
+               // Hide feedbacks
+               $('#mcq-answer-correct').addClass('d-none');
+               $('#mcq-answer-wrong').addClass('d-none');
+
+               $('#mcq-question').html(question.question);
+               $('#mcq-choices').html('');
+               question.answers.forEach((c, i) => {
+                   $('#mcq-choices').append(`
+                 <label class="quiz-card mb-2">
+                    <input value=${i}  name="choice" class="radio" type="radio">
+
+                    <span class="choice-details">
+                    <span class="choice-letter">${c.letter}</span>
+                    <span class="choice-description">${c.text}</span>
+                 </span>
+                 </label>
+               `)
+               });
+
+               restartAnimation('.mcq-container', 'animate__animated animate__slideInLeft')
+           }, 2500);
+       } else {
            // Hide feedbacks
            $('#mcq-answer-correct').addClass('d-none');
            $('#mcq-answer-wrong').addClass('d-none');
@@ -414,7 +437,9 @@ $module = $_GET['module'];
            });
 
            restartAnimation('.mcq-container', 'animate__animated animate__slideInLeft')
-       }, 2500);
+       }
+
+
 
     }
 
@@ -456,14 +481,14 @@ $module = $_GET['module'];
 
 
 
-    function goToNextMCQQuestion() {
+    function goToNextMCQQuestion(isSkip) {
         nextQuestionMCQ++;
         if(nextQuestionMCQ == questionsMCQ.length) {
             MCQDone = true;
             $('.mcq-container').addClass('d-none');
             $('.dnd-match-pic-to-name-container').removeClass('d-none');
         } else {
-            displayQuestionMCQ(questionsMCQ[nextQuestionMCQ]);
+            displayQuestionMCQ(questionsMCQ[nextQuestionMCQ], isSkip);
         }
 
     }
@@ -503,7 +528,7 @@ $module = $_GET['module'];
         beginGame();
 
         $('#skip-mcq-question').click(function () {
-            goToNextMCQQuestion();
+            goToNextMCQQuestion(true);
         });
 
         $('#spelling-game-next').click(function () {

@@ -81,7 +81,7 @@
                 ).fail(function (xhr, status, error) {
                     alert("Something went wrong: " + error);
                 });
-            }, 7000);
+            }, 2000);
 
 
 

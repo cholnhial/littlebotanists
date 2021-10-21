@@ -2,8 +2,13 @@
 ?>
 
 <style>
-    html {
-        box-sizing: border-box;
+
+    body {
+        background-image: url("/img/quiz.png");
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 
 
@@ -265,10 +270,10 @@
 </style>
 
 
-<h2 class="text-patrick-hand my-4 text-center">Matching Game</h2
+<h2 class="text-patrick-hand my-2 text-center">Matching Game</h2
 <div class="matching-game-container container">
 
-    <section class="score-panel">
+    <section class="score-panel mt-2">
         <ul class="stars">
             <li><i class="fa fa-star"></i></li>
             <li><i class="fa fa-star"></i></li>
@@ -285,7 +290,7 @@
         </div>
     </section>
 
-    <ul class="deck" id="card-deck">
+    <ul class="deck overflow-scroll" id="card-deck" style="height: 33rem !important;">
     </ul>
 
     <div class="modal" id="congratsModal">
