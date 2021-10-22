@@ -10,9 +10,19 @@ $module = $_GET['module'];
         position: absolute;
     }
 
+    #mcq-answer-correct {
+        z-index: 9999;
+        position: absolute;
+    }
+
     .text-color {
         color: var(--lbfithary);
     }
+
+    .text-color-dark {
+        color: var(--lbsecondary);
+    }
+
 
     .text-score {
         color: var(--lbsecondary);
@@ -267,22 +277,30 @@ $module = $_GET['module'];
         html { font-size: 14px; }
     }
 /* End Draggable */
+    .transparent-panel {
+        border: 7px solid white;
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 2px !important;
+        width: 25rem;
+    }
 </style>
 
 <h3 id="global-score" class="float-end text-patrick-hand mt-3 text-score">Score: <span id="user-score"></span></h3>
+
 <!-- Start Area for MCQ -->
-<div class="mcq-container" style="margin-top: 17rem">
+<div class="mcq-container" style="margin-top: 13rem">
     <h3 id="mcq-question" class="my-4 text-center text-color">Loading...</h3>
-    <div class="mx-auto text-center my-5">
-        <div id="mcq-answer-correct" style="width: 15rem" class="mx-auto d-none">
+    <div class="d-flex justify-content-center">
+        <div id="mcq-answer-correct" style="width: 15rem" class="mx-auto d-none text-center">
             <div class="card shadow-sm p-3" >
                 <h5>Correct!</h5>
                 <i class="far fa-2x text-success fa-check-circle"></i>
                 <h6>Well Done <?= $_COOKIE['username'] ?></h6>
             </div>
         </div>
-        <div class="mx-auto">
-            <div id="mcq-answer-wrong" style="width: 15rem" class="mx-auto d-none">
+        <div class="d-flex justify-content-center">
+            <div id="mcq-answer-wrong" style="width: 15rem" class="mx-auto d-none text-center">
                 <div class="card shadow-sm p-3" >
                     <h5>Almost got it!</h5>
                     <i class="far fa-2x text-danger fa-times-circle"></i>
@@ -305,28 +323,31 @@ $module = $_GET['module'];
 <!-- End Area for MCQ -->
 
 <!-- Drag & Drop -->
-<div class="dnd-match-pic-to-name-container d-none">
-    <section class="score">
-        <span class="correct">0</span>/<span class="total">0</span>
-    </section>
-    <section class="draggable-items">
+<div class="dnd-match-pic-to-name-container d-none" style="margin-top: 6rem">
+    <div class="transparent-panel mx-auto text-color-dark">
+        <section class="score">
+            <span class="correct">0</span>/<span class="total">0</span>
+        </section>
+        <section class="draggable-items">
 
-    </section>
-    <section class="matching-pairs">
+        </section>
+        <section class="matching-pairs">
 
-    </section>
+        </section>
+    </div>
+
 </div>
 <!-- End Drag & Drop -->
 
-<div class="spelling-container mx-auto d-none">
+<div class="spelling-container transparent-panel mx-auto d-none" style="width: 50rem !important; margin-top: 6rem">
 
     <div class="mx-auto">
         <div class="mx-auto" style="width: 30rem">
-            <h2 class="text-center text-patrick-hand mb-4">Spelling Game</h2>
-            <h6 class="text-center text-patrick-hand">Spell the word that you hear</h6>
+            <h2 class="text-center text-patrick-hand mb-4 text-color-dark">Spelling Game</h2>
+            <h5 class="text-center text-patrick-hand text-color-dark">Spell the word that you hear</h5>
             <div onclick="spellingGamePlayAudio()" class="card menu-card mx-auto mb-5" style="width: 12rem">
-                <div class="card-body text-center">
-                    <h6 class="text-patrick-hand">Click to play sound</h6>
+                <div class="card-body text-center text-color-dark">
+                    <h6 class="text-patrick-hand normal-font-size">Click to play sound</h6>
                     <i class="fas fa-3x fa-volume-up"></i>
                 </div>
             </div>
@@ -334,21 +355,21 @@ $module = $_GET['module'];
         <div class="mx-auto text-center" style="width: 30rem">
             <div id="spelling-correct" class="d-none shadow-lg">
                 <i class="far fa-2x text-success fa-check-circle"></i>
-                <h6>Well Done <?= $_COOKIE['username'] ?></h6>
+                <h6 class="text-color-dark fs-4">Well Done <?= $_COOKIE['username'] ?></h6>
             </div>
             <div id="spelling-wrong" class="d-none shadow-lg">
                 <i class="far fa-2x text-danger fa-times-circle"></i>
-                <h6>Sorry that was wrong, try again.</h6>
+                <h6 class="text-color-dark fs-4">Sorry that was wrong, try again.</h6>
             </div>
         </div>
         <div class="mx-auto" style="width: 30rem">
             <input id="spelling-input" class="form-control w-100 form-control-lg" />
         </div>
-        <div class="mx-auto mt-4 d-flex justify-content-end" style="width: 30rem">
+        <div class="mx-auto mt-4 mb-2 d-flex justify-content-end" style="width: 30rem">
             <div class="btn-group float-right">
-                <button id="spelling-game-submit" class="btn rounded btn-outline-primary">Submit</button>
-                <button id="spelling-game-next" class="btn rounded btn-outline-success d-none">Next</button>
-                <button id="spelling-game-finish" class="btn rounded btn-outline-success d-none">Finish</button>
+                <button id="spelling-game-submit" class="btn rounded btn-primary">Submit</button>
+                <button id="spelling-game-next" class="btn rounded btn-success d-none">Next</button>
+                <button id="spelling-game-finish" class="btn rounded btn-success d-none">Finish</button>
             </div>
         </div>
 
@@ -423,8 +444,8 @@ $module = $_GET['module'];
        if (!isSkip) {
            setTimeout(function () {
                // Hide feedbacks
-               $('#mcq-answer-correct').addClass('d-none');
-               $('#mcq-answer-wrong').addClass('d-none');
+              $('#mcq-answer-correct').addClass('d-none');
+              $('#mcq-answer-wrong').addClass('d-none');
 
                $('#mcq-question').html(question.question);
                $('#mcq-choices').html('');
@@ -445,14 +466,14 @@ $module = $_GET['module'];
            }, 2500);
        } else {
            // Hide feedbacks
-           $('#mcq-answer-correct').addClass('d-none');
-           $('#mcq-answer-wrong').addClass('d-none');
+          $('#mcq-answer-correct').addClass('d-none');
+          $('#mcq-answer-wrong').addClass('d-none');
 
            $('#mcq-question').html(question.question);
            $('#mcq-choices').html('');
            question.answers.forEach((c,i) => {
                $('#mcq-choices').append(`
-                 <label class="quiz-card mb-2 me-4">
+                 <label class="quiz-card mb-2 text-color">
                     <input value=${i}  name="choice" class="radio" type="radio">
 
                     <span class="choice-details">
