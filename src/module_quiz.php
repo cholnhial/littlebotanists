@@ -5,10 +5,31 @@ $module = $_GET['module'];
 
 <style>
 
+    #mcq-answer-wrong {
+        z-index: 9999;
+        position: absolute;
+    }
+
+    .text-color {
+        color: var(--lbfithary);
+    }
+
+    .text-score {
+        color: var(--lbsecondary);
+    }
+
     a:hover,
     a:visited,
     a:focus
     {text-decoration: none !important;}
+
+    body {
+        background-image: url("/img/quizstudy.png");
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 
     /**
 
@@ -41,10 +62,12 @@ $module = $_GET['module'];
         }
     }
     .quiz-card {
-        background-color: #fff;
+        background-color: var(--lbfouthary);
         border-radius: var(--card-radius);
         position: relative;
         border: 0;
+        width: 35rem;
+        margin-right: 5rem;
     }
 
     .radio {
@@ -92,7 +115,6 @@ $module = $_GET['module'];
         }
     }
     .choice-details {
-        border: var(--radio-border-width) solid var(--color-gray);
         border-radius: var(--card-radius);
         cursor: pointer;
         display: flex;
@@ -101,24 +123,24 @@ $module = $_GET['module'];
         transition: border-color 0.2s ease-out;
     }
     .quiz-card:hover .choice-details {
-        border-color: var(--color-dark-gray);
+        /*border-color: var(--color-dark-gray); */
     }
     .radio:checked ~ .choice-details {
         border-color: var(--color-green);
     }
     .radio:focus ~ .choice-details {
-        box-shadow: 0 0 0 2px var(--color-dark-gray);
+        /* box-shadow: 0 0 0 2px var(--color-dak); */
     }
     .radio:disabled ~ .choice-details {
-        color: var(--color-dark-gray);
-        cursor: default;
+       /* color: var(--color-dark-gray);
+        cursor: default;*/
     }
     .radio:disabled ~ .choice-details .choice-letter {
-        color: var(--color-dark-gray);
+        /*color: var(--color-dark-gray);*/
     }
     .quiz-card:hover .radio:disabled ~ .choice-details {
-        border-color: var(--color-gray);
-        box-shadow: none;
+        /*border-color: var(--color-gray);
+        box-shadow: none; */
     }
     .quiz-card:hover .radio:disabled {
         border-color: var(--color-gray);
@@ -247,10 +269,10 @@ $module = $_GET['module'];
 /* End Draggable */
 </style>
 
-<h3 id="global-score" class="float-end text-patrick-hand mt-3">Score: <span id="user-score"></span></h3>
+<h3 id="global-score" class="float-end text-patrick-hand mt-3 text-score">Score: <span id="user-score"></span></h3>
 <!-- Start Area for MCQ -->
-<div class="mcq-container">
-    <h3 id="mcq-question" class="my-4 text-center">Loading...</h3>
+<div class="mcq-container" style="margin-top: 17rem">
+    <h3 id="mcq-question" class="my-4 text-center text-color">Loading...</h3>
     <div class="mx-auto text-center my-5">
         <div id="mcq-answer-correct" style="width: 15rem" class="mx-auto d-none">
             <div class="card shadow-sm p-3" >
@@ -259,19 +281,24 @@ $module = $_GET['module'];
                 <h6>Well Done <?= $_COOKIE['username'] ?></h6>
             </div>
         </div>
-        <div id="mcq-answer-wrong" style="width: 15rem" class="mx-auto d-none">
-            <div class="card shadow-sm p-3" >
-                <h5>Almost got it!</h5>
-                <i class="far fa-2x text-danger fa-times-circle"></i>
-                <h6>Sorry that was wrong, good luck for the next one.</h6>
+        <div class="mx-auto">
+            <div id="mcq-answer-wrong" style="width: 15rem" class="mx-auto d-none">
+                <div class="card shadow-sm p-3" >
+                    <h5>Almost got it!</h5>
+                    <i class="far fa-2x text-danger fa-times-circle"></i>
+                    <h6>Sorry that was wrong, good luck for the next one.</h6>
+                </div>
             </div>
         </div>
+
     </div>
-    <div class="row row-cols-sm-2" id="mcq-choices">
+
+    <div id="mcq-choices" class="row row-cols-sm-2 gx-0" id="mcq-choices">
     </div>
+
     <div class="btn-group float-end">
-        <button id="submit-mcq-question" class="btn btn-outline-success">Submit</button>
-        <button id="skip-mcq-question" class="btn btn-outline-danger">Skip</button>
+        <button id="submit-mcq-question" class="btn btn-success">Submit</button>
+        <button id="skip-mcq-question" class="btn btn-danger">Skip</button>
     </div>
 
 </div>
@@ -305,11 +332,11 @@ $module = $_GET['module'];
             </div>
         </div>
         <div class="mx-auto text-center" style="width: 30rem">
-            <div id="spelling-correct" class="d-none">
+            <div id="spelling-correct" class="d-none shadow-lg">
                 <i class="far fa-2x text-success fa-check-circle"></i>
                 <h6>Well Done <?= $_COOKIE['username'] ?></h6>
             </div>
-            <div id="spelling-wrong" class="d-none">
+            <div id="spelling-wrong" class="d-none shadow-lg">
                 <i class="far fa-2x text-danger fa-times-circle"></i>
                 <h6>Sorry that was wrong, try again.</h6>
             </div>
@@ -403,7 +430,7 @@ $module = $_GET['module'];
                $('#mcq-choices').html('');
                question.answers.forEach((c, i) => {
                    $('#mcq-choices').append(`
-                 <label class="quiz-card mb-2">
+                 <label class="quiz-card mb-2 text-color">
                     <input value=${i}  name="choice" class="radio" type="radio">
 
                     <span class="choice-details">
@@ -425,7 +452,7 @@ $module = $_GET['module'];
            $('#mcq-choices').html('');
            question.answers.forEach((c,i) => {
                $('#mcq-choices').append(`
-                 <label class="quiz-card mb-2">
+                 <label class="quiz-card mb-2 me-4">
                     <input value=${i}  name="choice" class="radio" type="radio">
 
                     <span class="choice-details">

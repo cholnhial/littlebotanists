@@ -4,7 +4,7 @@
 <style>
 
     body {
-        background-image: url("/img/quiz.png");
+        background-image: url("/img/quizstudy.png");
         height: 100%;
         background-position: center;
         background-repeat: no-repeat;
