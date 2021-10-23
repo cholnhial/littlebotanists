@@ -17,6 +17,10 @@
         font-family: 'Patrick Hand', cursive;
     }
 
+    .text-color {
+        color: var(--lbsecondary);
+    }
+
     .container {
         display: flex;
         justify-content: center;
@@ -141,16 +145,6 @@
         display: inline-block;
     }
 
-    #play-again {
-        background-color: #141214;
-        padding: 0.7rem 1rem;
-        font-size: 1.1rem;
-        display: block;
-        margin: 0 auto;
-        width: 50%;
-        color: #ffffff;
-        border-radius: 5px;
-    }
 
     /* animations */
     @keyframes flipInY {
@@ -270,19 +264,19 @@
 </style>
 
 
-<h2 class="text-patrick-hand my-2 text-center">Matching Game</h2
+<h2 class="text-patrick-hand my-2 text-center text-color">Matching Game</h2
 <div class="matching-game-container container">
 
-    <section class="score-panel mt-2">
+    <section class="score-panel mt-2 text-color">
         <ul class="stars">
             <li><i class="fa fa-star"></i></li>
             <li><i class="fa fa-star"></i></li>
             <li><i class="fa fa-star"></i></li>
         </ul>
 
-        <span class="moves">0</span> Move(s)
+        <span class="moves text-color">0</span> Move(s)
 
-        <div class="timer">
+        <div class="timer text-color">
         </div>
 
         <div class="restart" onclick=startGame()>
@@ -309,9 +303,12 @@
                         <p>in <span id=totalTime> </span> </p>
                         <p>Rating:  <span id=starRating></span></p>
                     </div>
-                    <button id="play-again"onclick="playAgain()">
-                        Play again 😄</a>
-                    </button>
+                    <div class="d-flex justify-content-center">
+                        <button class="btn-outline-primary btn me-2" id="play-again"onclick="playAgain()">
+                            Play again
+                        </button>
+                        <a class="btn btn-outline-secondary" href="/index.php?cat=leaderboard&active=matching-game">Leaderboard</a>
+                    </div>
                 </div>
             </div>
         </div>

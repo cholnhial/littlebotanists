@@ -15,6 +15,10 @@ $module = $_GET['module'];
         position: absolute;
     }
 
+    .text-color-quiz-finish {
+        color: var(--lbfouthary);
+    }
+
     .text-color {
         color: var(--lbfithary);
     }
@@ -323,7 +327,7 @@ $module = $_GET['module'];
 <!-- End Area for MCQ -->
 
 <!-- Drag & Drop -->
-<div class="dnd-match-pic-to-name-container d-none" style="margin-top: 6rem">
+<div class="dnd-match-pic-to-name-container d-none" style="margin-top: 4rem">
     <div class="transparent-panel mx-auto text-color-dark">
         <section class="score">
             <span class="correct">0</span>/<span class="total">0</span>
@@ -381,15 +385,15 @@ $module = $_GET['module'];
 <div class="score-container d-none text-center">
     <div class="text-center" style="margin-top: 12%">
         <img class="lblogo" src="img/Logo.png" alt="logo"/>
-        <h3 class="text-center">Well done <?= $_COOKIE['username'] ?> your score is <span id="end-user-score"></span></h3>
-        <h6 class="text-center text-muted">What would you like to do next?</h6>
+        <h3 class="text-center text-color-quiz-finish">Well done <?= $_COOKIE['username'] ?> your score is <span id="end-user-score"></span></h3>
+        <p class="text-center text-color-quiz-finish normal-font-size">What would you like to do next?</p>
     </div>
     <div class="row">
         <div class="col-3">
         </div>
         <div class="col">
             <a class="text-decoration-none" href="index.php?cat=study_categories&plantCategoryType=<?= $categoryType?>&module=<?=$module?>">
-                <div class="card menu-card">
+                <div class="card menu-card home-menu-card opacity-75">
                     <div class="card-body text-center">
                         <h2>Study Again</h2>
                         <i class="fas fa-3x fa-graduation-cap"></i>
@@ -399,7 +403,7 @@ $module = $_GET['module'];
         </div>
         <div class="col">
             <a class="text-decoration-none" href="index.php?cat=leaderboard">
-            <div class="card menu-card">
+            <div class="card menu-card home-menu-card opacity-75">
                 <div class="card-body text-center">
                     <h2>Leadership Board</h2>
                     <i class="fas fa-3x fa-chart-line"></i>
@@ -532,9 +536,11 @@ $module = $_GET['module'];
     function goToNextMCQQuestion(isSkip) {
         nextQuestionMCQ++;
         if(nextQuestionMCQ == questionsMCQ.length) {
-            MCQDone = true;
-            $('.mcq-container').addClass('d-none');
-            $('.dnd-match-pic-to-name-container').removeClass('d-none');
+            setTimeout(function() {
+                MCQDone = true;
+                $('.mcq-container').addClass('d-none');
+                $('.dnd-match-pic-to-name-container').removeClass('d-none');
+            }, 3000);
         } else {
             displayQuestionMCQ(questionsMCQ[nextQuestionMCQ], isSkip);
         }

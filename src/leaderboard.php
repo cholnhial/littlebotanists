@@ -13,6 +13,10 @@ $usersWithMatchingGameTime = $userService->getUsersWithMatchingGameTime();
 ?>
 
 <style>
+    .text-color-dark {
+        color: var(--lbsecondary);
+    }
+
     body {
         background-image: url("/img/leaderboard.png");
         height: 100%;
@@ -26,20 +30,24 @@ $usersWithMatchingGameTime = $userService->getUsersWithMatchingGameTime();
     }
 </style>
 
-<h2 class="text-center text-patrick-hand">Quiz Leaderboard</h2>
+<h2 class="text-center text-patrick-hand fs-2 text-color-dark">Quiz Leaderboard</h2>
 <div class="mt-5 mx-auto" style="width: 45rem">
         <nav>
             <div class="nav nav-tabs  navbar-light bg-light nav-fill" id="nav-tab" role="tablist">
-                <button class="normal-font-size nav-link active" id="nav-quiz-tab" data-bs-toggle="tab" data-bs-target="#nav-quiz" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Quiz</button>
-                <button class="nav-link normal-font-size" id="nav-matching-game-tab" data-bs-toggle="tab" data-bs-target="#nav-matching-game" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Matching Game</button>
+                <button class="normal-font-size nav-link  <?= !isset($_GET['active']) ? 'active' : ''  ?>"  id="nav-quiz-tab" data-bs-toggle="tab" data-bs-target="#nav-quiz" type="button">Quiz</button>
+                <button class="nav-link normal-font-size <?= isset($_GET['active']) ? 'active' : ''  ?>"   id="nav-matching-game-tab" data-bs-toggle="tab" data-bs-target="#nav-matching-game" type="button">Matching Game</button>
             </div>
         </nav>
         <div class="tab-content">
-            <div class="tab-pane transparent-panel fade show active overflow-scroll" style="height: 20rem" id="nav-quiz" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="tab-pane transparent-panel fade <?= !isset($_GET['active']) ? 'active show' : ''  ?> overflow-scroll" style="height: 20rem" id="nav-quiz">
+
+                <div class="d-flex justify-content-center my-2">
+                    <button id="jump-to-me-quiz" class="btn btn-outline-success">Jump to me</button>
+                </div>
                 <?php foreach($usersWithQuizScore as $position=> $user){ ?>
                     <div class="card mb-3" >
                         <div class="card-body">
-                            <div class="row">
+                            <div class="row" <?php echo $_COOKIE['username'] == $user['name'] ?  'id="me-quiz"' : '' ?>>
                                 <div class="col-2">
                                     <span class="text-patrick-hand leaderboard-position">#<?= $position ?></span>
                                 </div>
@@ -54,12 +62,15 @@ $usersWithMatchingGameTime = $userService->getUsersWithMatchingGameTime();
                     </div>
                 <?php } ?>
             </div>
-            <div class="tab-pane fade transparent-panel  overflow-scroll" style="height: 20rem" id="nav-matching-game" role="tabpanel" aria-labelledby="nav-profile-tab">
-                <h3 class="my-2 text-patrick-hand text-center">Best Times</h3>
+            <div class="tab-pane fade transparent-panel  overflow-scroll <?= isset($_GET['active']) ? 'active show' : ''  ?>" style="height: 20rem" id="nav-matching-game">
+                <h3 class="my-2 text-patrick-hand text-center text-color-dark">Best Times</h3>
+                <div class="d-flex justify-content-center my-2">
+                    <button id="jump-to-me-mg" class="btn btn-outline-success">Jump to me</button>
+                </div>
                 <?php foreach($usersWithMatchingGameTime as $position=> $user){ ?>
                     <div class="card mb-3">
                         <div class="card-body rounded-2">
-                            <div class="row">
+                            <div class="row" <?php echo $_COOKIE['username'] == $user['name'] ?  'id="me-mg"' : '' ?>>
                                 <div class="col-2">
                                     <span class="text-patrick-hand leaderboard-position">#<?= $position ?></span>
                                 </div>
@@ -90,7 +101,7 @@ $usersWithMatchingGameTime = $userService->getUsersWithMatchingGameTime();
             </a>
         </div>
         <div class="col-2">
-            <a class="text-decoration-none normal-font-size" href="index.php?cat=study">
+            <a class="text-decoration-none" href="index.php?cat=study">
                 <div class="card home-menu-card opacity-75">
                     <div class="card-body text-center">
                         <h4>Study</h4>
@@ -104,3 +115,16 @@ $usersWithMatchingGameTime = $userService->getUsersWithMatchingGameTime();
 
 </div>
 
+<script>
+    $('#jump-to-me-quiz').click(function() {
+        document.getElementById("me-quiz").scrollIntoView();
+        restartAnimation('#me-quiz', 'animate__animated animate__flash animate__fast')
+
+    });
+
+    $('#jump-to-me-mg').click(function() {
+        document.getElementById("me-mg").scrollIntoView();
+        restartAnimation('#me-mg', 'animate__animated animate__flash animate__fast')
+
+    });
+</script>

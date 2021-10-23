@@ -103,8 +103,8 @@ switch ($_GET['cat']) {
         <?php $pageTitle = "Matching Game" ?>
         <?php include("matching-game.php") ?>
     <?php endif; ?>
-    <?php if(isset($_GET['cat']) && $_GET['cat'] == 'matching-game'): ?>
-        <?php $pageTitle = "About" ?>
+    <?php if(isset($_GET['cat']) && $_GET['cat'] == 'about'): ?>
+        <?php $pageTitle = "About LittleBotanists" ?>
         <?php include("about.php") ?>
     <?php endif; ?>
     </div>

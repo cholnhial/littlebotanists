@@ -119,7 +119,7 @@ class UserService
 
         $sql = "UPDATE users SET best_matching_game_time=? WHERE `name`=?";
         $stmt = $databaseHandle->prepare($sql);
-        if($user['best_matching_game_time'] > $time) {
+        if($user['best_matching_game_time'] == 0 || $user['best_matching_game_time']  > $time) {
             if(!$stmt->execute([$time,  $name])) {
                 return false;
             }
