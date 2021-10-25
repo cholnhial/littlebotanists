@@ -30,7 +30,7 @@ $usersWithMatchingGameTime = $userService->getUsersWithMatchingGameTime();
     }
 </style>
 
-<h2 class="text-center text-patrick-hand fs-2 text-color-dark">Quiz Leaderboard</h2>
+<h2 class="text-center text-patrick-hand fs-2 text-color-dark">Leaderboard</h2>
 <div class="mt-5 mx-auto" style="width: 45rem">
         <nav>
             <div class="nav nav-tabs  navbar-light bg-light nav-fill" id="nav-tab" role="tablist">
