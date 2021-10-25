@@ -21,18 +21,20 @@
 
 </style>
 <img class="cool-sun" src="/img/cool-sun.png?version=1">
-<div class="mt-">
+<div>
     <div class="text-center" style="margin-top: -6%; margin-left: 29%">
         <img class="lblogo" src="img/Logo.png" alt="logo"/>
-        <div class="transparent-panel">
+        <div class="transparent-panel fs-4">
             <p class="my-0 mx-0">Welcome to Little Botanists <?= $_COOKIE['username'] ?></p>
             <p class="my-0 mx-0">Here you can learn everything there is to know about Australia's amazing plants!</p>
             <p class="my-0 mx-0">Do you think you have what it takes to become a Little Botanist?</p>
             <p class="my-0 mx-0">Study and quiz your knowledge, competing against your friends and enemies</p>
+            <a class="btn btn-outline-secondary text-decoration-none" href="index.php?cat=about">Learn about us...</a>
         </div>
+
     </div>
 
-    <div  style="margin-top: 22rem">
+    <div  style="margin-top: 12rem">
         <div class="row">
             <div class="col">
                 <a class="text-decoration-none" href="index.php?cat=study">

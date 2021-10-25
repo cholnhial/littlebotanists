@@ -12,7 +12,17 @@ if (!isset($_COOKIE['username']) && !isset($_GET['cat'])) {
 }
 
 $pageTitle  = "";
+$tabPageTitle = "";
 
+switch ($_GET['cat']) {
+    case 'name': $tabPageTitle = 'Name';
+    break;
+    case 'about': $tabPageTitle = 'About';
+    break;
+    case 'module_quiz': $tabPageTitle = 'Quiz';
+    break;
+    default: $tabPageTitle = '-';
+}
 ?>
 <!doctype html>
 <html lang="en" class="h-100">
@@ -21,7 +31,7 @@ $pageTitle  = "";
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>LittleBotanists</title>
+    <title>LittleBotanists - <?= $tabPageTitle ?></title>
 
 
 
@@ -56,16 +66,18 @@ $pageTitle  = "";
     <script src="js/lightbox.min.js"></script>
     <script src="js/jquery-jvectormap-1.1.1.min.js"></script>
     <script src="js/jquery-jvectormap-au-merc.js"></script>
+    <!-- For improved text to speed -->
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=nIDs4neg"></script>
     <!-- Our custom JS -->
     <script src="js/main.js?version=27"></script>
 
     <!-- Custom styles-->
-    <link href="css/main.css?version=22" rel="stylesheet">
+    <link href="css/main.css?version=24" rel="stylesheet">
 </head>
 <body class="d-flex flex-column h-100">
 <?php include("header.php") ?>
 
-<main class="flex-shrink-0">
+<main class="flex-shrink-0<?= $_GET['cat'] == 'about' ? ' overflow-scroll' : ''?>" <?php echo $_GET['cat'] == 'about' ? 'style="height: 48rem;"' : '' ?>>
     <div class="container">
     <?php if(isset($_GET['cat']) && $_GET['cat'] == 'name'): ?>
         <?php $pageTitle = "Name" ?>
@@ -94,6 +106,10 @@ $pageTitle  = "";
     <?php if(isset($_GET['cat']) && $_GET['cat'] == 'matching-game'): ?>
         <?php $pageTitle = "Matching Game" ?>
         <?php include("matching-game.php") ?>
+    <?php endif; ?>
+    <?php if(isset($_GET['cat']) && $_GET['cat'] == 'about'): ?>
+        <?php $pageTitle = "About LittleBotanists" ?>
+        <?php include("about.php") ?>
     <?php endif; ?>
     </div>
 </main>

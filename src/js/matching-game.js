@@ -5,7 +5,7 @@
  * It was obtained from https://github.com/sandraisrael/Memory-Game-fend
  *
  * We've modified it so that instead of using FontAwesome icons it uses images and text.
- * We've also
+ * We've also added our own callbacks into the code and changed the modal
  *
  * @type {null}
  */

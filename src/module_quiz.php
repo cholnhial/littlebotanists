@@ -5,10 +5,45 @@ $module = $_GET['module'];
 
 <style>
 
+    #mcq-answer-wrong {
+        z-index: 9999;
+        position: absolute;
+    }
+
+    #mcq-answer-correct {
+        z-index: 9999;
+        position: absolute;
+    }
+
+    .text-color-quiz-finish {
+        color: var(--lbfouthary);
+    }
+
+    .text-color {
+        color: var(--lbfithary);
+    }
+
+    .text-color-dark {
+        color: var(--lbsecondary);
+    }
+
+
+    .text-score {
+        color: var(--lbsecondary);
+    }
+
     a:hover,
     a:visited,
     a:focus
     {text-decoration: none !important;}
+
+    body {
+        background-image: url("/img/quizstudy.png");
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 
     /**
 
@@ -41,10 +76,12 @@ $module = $_GET['module'];
         }
     }
     .quiz-card {
-        background-color: #fff;
+        background-color: var(--lbfouthary);
         border-radius: var(--card-radius);
         position: relative;
         border: 0;
+        width: 35rem;
+        margin-right: 5rem;
     }
 
     .radio {
@@ -92,7 +129,6 @@ $module = $_GET['module'];
         }
     }
     .choice-details {
-        border: var(--radio-border-width) solid var(--color-gray);
         border-radius: var(--card-radius);
         cursor: pointer;
         display: flex;
@@ -101,24 +137,24 @@ $module = $_GET['module'];
         transition: border-color 0.2s ease-out;
     }
     .quiz-card:hover .choice-details {
-        border-color: var(--color-dark-gray);
+        /*border-color: var(--color-dark-gray); */
     }
     .radio:checked ~ .choice-details {
         border-color: var(--color-green);
     }
     .radio:focus ~ .choice-details {
-        box-shadow: 0 0 0 2px var(--color-dark-gray);
+        /* box-shadow: 0 0 0 2px var(--color-dak); */
     }
     .radio:disabled ~ .choice-details {
-        color: var(--color-dark-gray);
-        cursor: default;
+       /* color: var(--color-dark-gray);
+        cursor: default;*/
     }
     .radio:disabled ~ .choice-details .choice-letter {
-        color: var(--color-dark-gray);
+        /*color: var(--color-dark-gray);*/
     }
     .quiz-card:hover .radio:disabled ~ .choice-details {
-        border-color: var(--color-gray);
-        box-shadow: none;
+        /*border-color: var(--color-gray);
+        box-shadow: none; */
     }
     .quiz-card:hover .radio:disabled {
         border-color: var(--color-gray);
@@ -245,83 +281,99 @@ $module = $_GET['module'];
         html { font-size: 14px; }
     }
 /* End Draggable */
+    .transparent-panel {
+        border: 7px solid white;
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 2px !important;
+        width: 25rem;
+    }
 </style>
 
-<h3 id="global-score" class="float-end text-patrick-hand mt-3">Score: <span id="user-score"></span></h3>
+<h3 id="global-score" class="float-end text-patrick-hand mt-3 text-score">Score: <span id="user-score"></span></h3>
+
 <!-- Start Area for MCQ -->
-<div class="mcq-container">
-    <h3 id="mcq-question" class="my-4 text-center">Loading...</h3>
-    <div class="mx-auto text-center my-5">
-        <div id="mcq-answer-correct" style="width: 15rem" class="mx-auto d-none">
+<div class="mcq-container" style="margin-top: 13rem">
+    <h3 id="mcq-question" class="my-4 text-center text-color">Loading...</h3>
+    <div class="d-flex justify-content-center">
+        <div id="mcq-answer-correct" style="width: 15rem" class="mx-auto d-none text-center">
             <div class="card shadow-sm p-3" >
                 <h5>Correct!</h5>
                 <i class="far fa-2x text-success fa-check-circle"></i>
                 <h6>Well Done <?= $_COOKIE['username'] ?></h6>
             </div>
         </div>
-        <div id="mcq-answer-wrong" style="width: 15rem" class="mx-auto d-none">
-            <div class="card shadow-sm p-3" >
-                <h5>Almost got it!</h5>
-                <i class="far fa-2x text-danger fa-times-circle"></i>
-                <h6>Sorry that was wrong, good luck for the next one.</h6>
+        <div class="d-flex justify-content-center">
+            <div id="mcq-answer-wrong" style="width: 15rem" class="mx-auto d-none text-center">
+                <div class="card shadow-sm p-3" >
+                    <h5>Almost got it!</h5>
+                    <i class="far fa-2x text-danger fa-times-circle"></i>
+                    <h6>Sorry that was wrong, good luck for the next one.</h6>
+                </div>
             </div>
         </div>
+
     </div>
-    <div class="row row-cols-sm-2" id="mcq-choices">
+
+    <div id="mcq-choices" class="row row-cols-sm-2 gx-0" id="mcq-choices">
     </div>
+
     <div class="btn-group float-end">
-        <button id="submit-mcq-question" class="btn btn-outline-success">Submit</button>
-        <button id="skip-mcq-question" class="btn btn-outline-danger">Skip</button>
+        <button id="submit-mcq-question" class="btn btn-success">Submit</button>
+        <button id="skip-mcq-question" class="btn btn-danger">Skip</button>
     </div>
 
 </div>
 <!-- End Area for MCQ -->
 
 <!-- Drag & Drop -->
-<div class="dnd-match-pic-to-name-container d-none">
-    <section class="score">
-        <span class="correct">0</span>/<span class="total">0</span>
-    </section>
-    <section class="draggable-items">
+<div class="dnd-match-pic-to-name-container d-none" style="margin-top: 4rem">
+    <div class="transparent-panel mx-auto text-color-dark">
+        <section class="score">
+            <span class="correct">0</span>/<span class="total">0</span>
+        </section>
+        <section class="draggable-items">
 
-    </section>
-    <section class="matching-pairs">
+        </section>
+        <section class="matching-pairs">
 
-    </section>
+        </section>
+    </div>
+
 </div>
 <!-- End Drag & Drop -->
 
-<div class="spelling-container mx-auto d-none">
+<div class="spelling-container transparent-panel mx-auto d-none" style="width: 50rem !important; margin-top: 6rem">
 
     <div class="mx-auto">
         <div class="mx-auto" style="width: 30rem">
-            <h2 class="text-center text-patrick-hand mb-4">Spelling Game</h2>
-            <h6 class="text-center text-patrick-hand">Spell the word that you hear</h6>
-            <div onclick="spellingGamePlayAudio()" class="card menu-card mx-auto mb-5" style="width: 12rem">
-                <div class="card-body text-center">
-                    <h6 class="text-patrick-hand">Click to play sound</h6>
-                    <i class="far fa-3x fa-file-audio"></i>
+            <h2 class="text-center text-patrick-hand mb-4 text-color-dark">Spelling Game</h2>
+            <h5 class="text-center text-patrick-hand text-color-dark">Spell the word that you hear</h5>
+            <div onclick="spellingGamePlayAudio()" class="card opacity-75  home-menu-card menu-card mx-auto mb-5" style="width: 12rem">
+                <div class="card-body text-center text-color-dark">
+                    <h6 class="text-patrick-hand normal-font-size">Click to play sound</h6>
+                    <i class="fas fa-3x fa-volume-up"></i>
                 </div>
             </div>
         </div>
         <div class="mx-auto text-center" style="width: 30rem">
-            <div id="spelling-correct" class="d-none">
+            <div id="spelling-correct" class="d-none shadow-lg">
                 <i class="far fa-2x text-success fa-check-circle"></i>
-                <h6>Well Done <?= $_COOKIE['username'] ?></h6>
+                <h6 class="text-color-dark fs-4">Well Done <?= $_COOKIE['username'] ?></h6>
             </div>
-            <div id="spelling-wrong" class="d-none">
+            <div id="spelling-wrong" class="d-none shadow-lg">
                 <i class="far fa-2x text-danger fa-times-circle"></i>
-                <h6>Sorry that was wrong, try again.</h6>
+                <h6 class="text-color-dark fs-4">Sorry that was wrong, try again.</h6>
             </div>
         </div>
         <div class="mx-auto" style="width: 30rem">
             <input id="spelling-input" class="form-control w-100 form-control-lg" />
         </div>
-        <div class="mx-auto mt-4 d-flex justify-content-end" style="width: 30rem">
+        <div class="mx-auto mt-4 mb-2 d-flex justify-content-end" style="width: 30rem">
             <div class="btn-group float-right">
-                <button id="spelling-game-submit" class="btn rounded btn-outline-primary">Submit</button>
-                <button id="spelling-game-next" class="btn rounded btn-outline-success d-none">Next</button>
-                <button id="spelling-game-finish" class="btn rounded btn-outline-success d-none">Finish</button>
+                <button id="spelling-game-submit" class="btn rounded btn-primary">Submit</button>
+                <button id="spelling-game-next" class="btn rounded btn-success d-none">Next</button>
+                <button id="spelling-game-finish" class="btn rounded btn-success d-none">Finish</button>
             </div>
         </div>
 
@@ -333,15 +385,15 @@ $module = $_GET['module'];
 <div class="score-container d-none text-center">
     <div class="text-center" style="margin-top: 12%">
         <img class="lblogo" src="img/Logo.png" alt="logo"/>
-        <h3 class="text-center">Well done <?= $_COOKIE['username'] ?> your score is <span id="end-user-score"></span></h3>
-        <h6 class="text-center text-muted">What would you like to do next?</h6>
+        <h3 class="text-center text-color-quiz-finish">Well done <?= $_COOKIE['username'] ?> your score is <span id="end-user-score"></span></h3>
+        <p class="text-center text-color-quiz-finish normal-font-size">What would you like to do next?</p>
     </div>
     <div class="row">
         <div class="col-3">
         </div>
         <div class="col">
             <a class="text-decoration-none" href="index.php?cat=study_categories&plantCategoryType=<?= $categoryType?>&module=<?=$module?>">
-                <div class="card menu-card">
+                <div class="card menu-card home-menu-card opacity-75">
                     <div class="card-body text-center">
                         <h2>Study Again</h2>
                         <i class="fas fa-3x fa-graduation-cap"></i>
@@ -351,7 +403,7 @@ $module = $_GET['module'];
         </div>
         <div class="col">
             <a class="text-decoration-none" href="index.php?cat=leaderboard">
-            <div class="card menu-card">
+            <div class="card menu-card home-menu-card opacity-75">
                 <div class="card-body text-center">
                     <h2>Leadership Board</h2>
                     <i class="fas fa-3x fa-chart-line"></i>
@@ -391,18 +443,41 @@ $module = $_GET['module'];
        $('#user-score').html(userGameScore);
     }
 
-    function displayQuestionMCQ(question) {
+    function displayQuestionMCQ(question, isSkip) {
 
-       setTimeout(function() {
+       if (!isSkip) {
+           setTimeout(function () {
+               // Hide feedbacks
+              $('#mcq-answer-correct').addClass('d-none');
+              $('#mcq-answer-wrong').addClass('d-none');
+
+               $('#mcq-question').html(question.question);
+               $('#mcq-choices').html('');
+               question.answers.forEach((c, i) => {
+                   $('#mcq-choices').append(`
+                 <label class="quiz-card mb-2 text-color">
+                    <input value=${i}  name="choice" class="radio" type="radio">
+
+                    <span class="choice-details">
+                    <span class="choice-letter">${c.letter}</span>
+                    <span class="choice-description">${c.text}</span>
+                 </span>
+                 </label>
+               `)
+               });
+
+               restartAnimation('.mcq-container', 'animate__animated animate__slideInLeft')
+           }, 2500);
+       } else {
            // Hide feedbacks
-           $('#mcq-answer-correct').addClass('d-none');
-           $('#mcq-answer-wrong').addClass('d-none');
+          $('#mcq-answer-correct').addClass('d-none');
+          $('#mcq-answer-wrong').addClass('d-none');
 
            $('#mcq-question').html(question.question);
            $('#mcq-choices').html('');
            question.answers.forEach((c,i) => {
                $('#mcq-choices').append(`
-                 <label class="quiz-card mb-2">
+                 <label class="quiz-card mb-2 text-color">
                     <input value=${i}  name="choice" class="radio" type="radio">
 
                     <span class="choice-details">
@@ -414,7 +489,9 @@ $module = $_GET['module'];
            });
 
            restartAnimation('.mcq-container', 'animate__animated animate__slideInLeft')
-       }, 2500);
+       }
+
+
 
     }
 
@@ -441,6 +518,7 @@ $module = $_GET['module'];
                $('#spelling-game-submit').addClass('d-none');
                $('#spelling-game-next').removeClass('d-none');
                 userGameScore += 10;
+                updateScore();
 
            } else {
                $('#spelling-wrong').removeClass('d-none');
@@ -450,22 +528,22 @@ $module = $_GET['module'];
     }
 
     function spellingGamePlayAudio() {
-        tts = new SpeechSynthesisUtterance();
-        tts.text = questionsSpellingGame[nextQuestionSpellingGame].word;
-        window.speechSynthesis.speak(tts);
+        responsiveVoice.speak(questionsSpellingGame[nextQuestionSpellingGame].word);
     }
 
 
 
 
-    function goToNextMCQQuestion() {
+    function goToNextMCQQuestion(isSkip) {
         nextQuestionMCQ++;
         if(nextQuestionMCQ == questionsMCQ.length) {
-            MCQDone = true;
-            $('.mcq-container').addClass('d-none');
-            $('.dnd-match-pic-to-name-container').removeClass('d-none');
+            setTimeout(function() {
+                MCQDone = true;
+                $('.mcq-container').addClass('d-none');
+                $('.dnd-match-pic-to-name-container').removeClass('d-none');
+            }, 3000);
         } else {
-            displayQuestionMCQ(questionsMCQ[nextQuestionMCQ]);
+            displayQuestionMCQ(questionsMCQ[nextQuestionMCQ], isSkip);
         }
 
     }
@@ -505,7 +583,7 @@ $module = $_GET['module'];
         beginGame();
 
         $('#skip-mcq-question').click(function () {
-            goToNextMCQQuestion();
+            goToNextMCQQuestion(true);
         });
 
         $('#spelling-game-next').click(function () {

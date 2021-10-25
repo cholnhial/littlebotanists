@@ -7,3 +7,7 @@
 // Creative Commons
 // https://freesound.org/people/plasterbrain/sounds/397355/
 winner.flac
+
+// Tux Avatars - used on about page
+https://store.kde.org/p/1102372/
+

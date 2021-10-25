@@ -6,34 +6,83 @@ $module = $_GET['module'];
     .button_container {
         top: 2% !important;
     }
+
+    body {
+        background-image: url("/img/module.png");
+        height: 100%;
+        background-position-y: 3rem;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+    }
+    a:hover,
+    a:visited,
+    a:focus
+    {text-decoration: none !important;}
+
+    .transparent-panel {
+        border: 7px solid white;
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 8px;
+    }
+
+    .spinner-color {
+        color: var(--lbfouthary);
+    }
+
+    .nav-link {
+        color: var(--lbsecondary);
+    }
+
+    .start-quiz-button:hover {
+        background-color: var(--lbfouthary);
+        color: var(--lbfithary);
+    }
+
 </style>
 
-<nav id="plants" style="margin-left: 5rem !important" class="nav d-inline-flex nav-tabs fixed-top">
 
+<nav id="plants" style="margin-top: 3.5rem" class="navbar nav d-inline-flex nav-fill nav-tabs fixed-top bg-light">
 </nav>
 
-<div class="row">
+<div class="row" style="margin-top: 5%">
     <div class="col">
-        <h1 id="plant-name"></h1>
+        <div class="transparent-panel">
+            <h1 id="plant-name"></h1>
 
-        <h5>Description <span>
+            <h5 class="fw-bold">Description <span>
                 <button id="tts-play" class="btn btn-sm btn-outline-success"> <i class="fas fa-play fa-1x"></i></button>
             <button id="tts-stop" class="btn btn-sm btn-outline-danger"> <i class="fas fa-stop fa-1x"></i></button>
             </span>
-        </h5>
-        <p id="plant-description" class="text-wrap"></p>
-        <h3 class="my-2">Gallery</h3>
-        <div id="images" class="d-flex justify-content-evenly overflow-scroll">
-
-        </div>
-        <div class="d-flex mt-3 justify-content-center">
-            <a href="index.php?cat=module_quiz&module=<?=$module?>&plantCategoryType=<?=$categoryType?>" class="btn btn-outline-primary friendly-btn">Start <?= $module ?> Module Quiz</a>
+            </h5>
+            <p id="plant-description" class="normal-font-size text-wrap"></p>
+            <h5 class="my-2 fw-bold">Gallery</h5>
+            <div id="images" class="d-flex justify-content-evenly overflow-scroll">
+            </div>
+            <div id="spinner-gallery" class="d-flex justify-content-center">
+                <div  class="spinner-border spinner-color mx-auto" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <?php if($categoryType == 'Groundcovers'): ?>
+            <div class="d-flex mt-3 justify-content-center">
+                <a href="index.php?cat=module_quiz&module=<?=$module?>&plantCategoryType=<?=$categoryType?>" class="fs-2 btn btn-outline-secondary friendly-btn text-decoration-none start-quiz-button">Start <?= $module ?> Module Quiz</a>
+            </div>
+            <?php endif ; ?>
         </div>
     </div>
     <div class="col">
-        <h3 class="my-2">Occurrences</h3>
-        <div id="map"></div>
-        <p class="text-muted"><strong>Help:</strong> Click on the dot to view an image taken in that location</p>
+        <div class="transparent-panel">
+            <h3 class="my-2">Occurrences</h3>
+            <div id="map"></div>
+            <div id="map-spinner" class="d-flex justify-content-center">
+                <div  class="spinner-border spinner-color mx-auto" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <p id="map-help" class="text-muted normal-font-size"><strong>Help:</strong> Click on the dot to view an image taken in that location</p>
+        </div>
     </div>
 </div>
 
@@ -62,6 +111,11 @@ $module = $_GET['module'];
     var tts = null;
 
     function showPlant(element) {
+        $('#map-spinner').removeClass('d-none');
+        $('#spinner-gallery').removeClass('d-none');
+        $('#map-help').addClass('d-none');
+        $('#images').addClass('d-none');
+        $('#map').hide();
         let plant = plantsGroupedByType[plantCategory.toLowerCase()][$(element).data('index')];
         $('#plant-name').html(plant['Species']);
         $('#plant-description').html(plant['Description and growing requirements']);
@@ -122,20 +176,22 @@ $module = $_GET['module'];
                 map.series.regions[0].setValues(myCustomColors);
             });
 
-            $.LoadingOverlay("hide");
+           // $.LoadingOverlay("hide");
+            $('#map').show();
+            $('#images').removeClass('d-none');
+            $('#map-help').removeClass('d-none');
+            $('#spinner-gallery').addClass('d-none');
+            $('#map-spinner').addClass('d-none');
         });
     }
     $(document).ready(function() {
         $('#tts-play').click(function(){
-            if (!tts) {
-                tts = new SpeechSynthesisUtterance();
-            }
-            tts.text = $('#plant-description').html();
-            window.speechSynthesis.speak(tts);
+            let text = $('#plant-description').html();
+            responsiveVoice.speak(text);
         });
 
         $('#tts-stop').click(function() {
-            window.speechSynthesis.cancel();
+            responsiveVoice.cancel();
         });
 
 
@@ -150,16 +206,15 @@ $module = $_GET['module'];
 
            plantsGroupedByType[plantCategory.toLowerCase()].forEach((p, i) => {
                if( i === 0) {
-                  $('#plants').append(`<button data-index="${i}" class="nav-link active friendly-btn" data-bs-toggle="tab"   type="button" role="tab">${p.Species}</button>`);
+                  $('#plants').append(`<button data-index="${i}" class="nav-link text-decoration-none active friendly-btn fs-5" data-bs-toggle="tab"   type="button" role="tab">${p.Species}</button>`);
                } else {
-                   $('#plants').append(`<button data-index="${i}" class="nav-link friendly-btn" data-bs-toggle="tab"  type="button" role="tab">${p.Species}</button>`);
+                   $('#plants').append(`<button data-index="${i}" class="nav-link friendly-btn fs-5" data-bs-toggle="tab"  type="button" role="tab">${p.Species}</button>`);
                }
            });
             // Show first plant
+            $.LoadingOverlay("hide");
             showPlant($('#plants').children()[0]);
-
             $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
-                $.LoadingOverlay("show");
                 showPlant(this);
             });
     });
