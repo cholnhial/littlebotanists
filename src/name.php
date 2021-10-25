@@ -26,7 +26,7 @@
                     <img class="namelogo mx-auto" src="img/Logo.png" alt="logo"/>
                 </div>
                 <h5 class="card-title text-center text-size text-color-dark">Almost there!</h5>
-                <p class="card-text text-center text-size text-color-dark">In order personalise the experience for you please provide us with your username.</p>
+                <p class="card-text text-center text-size text-color-dark">In order to personalise the experience for you please provide us with your username.</p>
 
                 <form id="name-form">
                     <div class="mb-3">
