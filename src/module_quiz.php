@@ -349,7 +349,7 @@ $module = $_GET['module'];
         <div class="mx-auto" style="width: 30rem">
             <h2 class="text-center text-patrick-hand mb-4 text-color-dark">Spelling Game</h2>
             <h5 class="text-center text-patrick-hand text-color-dark">Spell the word that you hear</h5>
-            <div onclick="spellingGamePlayAudio()" class="card menu-card mx-auto mb-5" style="width: 12rem">
+            <div onclick="spellingGamePlayAudio()" class="card opacity-75  home-menu-card menu-card mx-auto mb-5" style="width: 12rem">
                 <div class="card-body text-center text-color-dark">
                     <h6 class="text-patrick-hand normal-font-size">Click to play sound</h6>
                     <i class="fas fa-3x fa-volume-up"></i>
@@ -518,6 +518,7 @@ $module = $_GET['module'];
                $('#spelling-game-submit').addClass('d-none');
                $('#spelling-game-next').removeClass('d-none');
                 userGameScore += 10;
+                updateScore();
 
            } else {
                $('#spelling-wrong').removeClass('d-none');

@@ -17,9 +17,15 @@ if (isset($_GET['cat'])) {
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0 mx-auto">
                 </ul>
+
+
                 <div class="d-flex">
+                    <a href="index.php?cat=home" class="btn rounded me-2 btn-md btn-outline-info float-right"><i class="fa fa-home"></i></a>
+                    <?php if ($activePage != 'about'): ?>
                     <button id="helpButton" class="btn rounded btn-md btn-outline-info float-right"><i class="help-button-icon fa fa-question-circle"></i><span class="text-patrick-hand"> Help</span></button>
+                    <?php endif; ?>
                 </div>
+
             </div>
         </div>
     </nav>

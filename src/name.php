@@ -7,6 +7,10 @@
         background-size: cover;
     }
 
+    .text-color-dark {
+        color: var(--lbsecondary);
+    }
+
     .text-size {
         font-size: 1.5rem;
     }
@@ -14,19 +18,19 @@
 <div class="position-relative" id="name-card-wrapper">
     <div class="position-absolute name-card-top start-50 translate-middle">
         <div class="card transparent-panel text-end" style="width: 50rem;">
-            <div class="card-header text-center text-size">
+            <div class="card-header text-center text-size text-color-dark">
                 Provide your username
             </div>
             <div class="card-body">
                 <div class="d-flex justify-content-center">
                     <img class="namelogo mx-auto" src="img/Logo.png" alt="logo"/>
                 </div>
-                <h5 class="card-title text-center text-size">Almost there!</h5>
-                <p class="card-text text-center text-size">In order personalise the experience for you please provide us with your username.</p>
+                <h5 class="card-title text-center text-size text-color-dark">Almost there!</h5>
+                <p class="card-text text-center text-size text-color-dark">In order personalise the experience for you please provide us with your username.</p>
 
                 <form id="name-form">
                     <div class="mb-3">
-                        <label class="form-label text-size" for="name">Your Nickname</label>
+                        <label class="form-label text-size text-color-dark" for="name">Your Nickname</label>
                         <input id="name" class="form-control form-control-lg" type="text" placeholder="Alex101">
                         <div id="validateNameInValidFeedback" class="d-none invalid-feedback text-size">
                         </div>

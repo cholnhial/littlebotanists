@@ -17,6 +17,10 @@ $tabPageTitle = "";
 switch ($_GET['cat']) {
     case 'name': $tabPageTitle = 'Name';
     break;
+    case 'about': $tabPageTitle = 'About';
+    break;
+    case 'module_quiz': $tabPageTitle = 'Quiz';
+    break;
     default: $tabPageTitle = '-';
 }
 ?>
@@ -73,7 +77,7 @@ switch ($_GET['cat']) {
 <body class="d-flex flex-column h-100">
 <?php include("header.php") ?>
 
-<main class="flex-shrink-0">
+<main class="flex-shrink-0<?= $_GET['cat'] == 'about' ? ' overflow-scroll' : ''?>" <?php echo $_GET['cat'] == 'about' ? 'style="height: 48rem;"' : '' ?>>
     <div class="container">
     <?php if(isset($_GET['cat']) && $_GET['cat'] == 'name'): ?>
         <?php $pageTitle = "Name" ?>
