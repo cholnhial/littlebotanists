@@ -21,6 +21,14 @@ switch ($_GET['cat']) {
     break;
     case 'module_quiz': $tabPageTitle = 'Quiz';
     break;
+    case 'leaderboard': $tabPageTitle = "Leaderboard";
+    break;
+    case 'study_categories': $tabPageTitle = "Study " . $_GET['plantCategoryType'];
+    break;
+    case 'home': $tabPageTitle = "Home";
+    break;
+    case 'matching-game': $tabPageTitle = 'Matching Game';
+    break;
     default: $tabPageTitle = '-';
 }
 ?>
@@ -32,7 +40,7 @@ switch ($_GET['cat']) {
     <meta name="description" content="">
     <meta name="author" content="">
     <title>LittleBotanists - <?= $tabPageTitle ?></title>
-
+    <link rel="icon" type="image/png" href="img/favicon.png" />
 
 
     <!-- Bootstrap core CSS -->
