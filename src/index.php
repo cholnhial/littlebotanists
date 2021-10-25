@@ -25,6 +25,8 @@ switch ($_GET['cat']) {
     break;
     case 'study_categories': $tabPageTitle = "Study " . $_GET['plantCategoryType'];
     break;
+    case 'study': $tabPageTitle = "Study";
+    break;
     case 'home': $tabPageTitle = "Home";
     break;
     case 'matching-game': $tabPageTitle = 'Matching Game';
