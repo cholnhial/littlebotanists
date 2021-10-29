@@ -49,9 +49,15 @@ $module = $_GET['module'];
 <div class="row" style="margin-top: 5%">
     <div class="col">
         <div class="transparent-panel">
-            <h1 id="plant-name"></h1>
+            <input type="hidden"id="nameScientific" value="" />
+            <input type="hidden"id="nameCommon" value="" />
 
-            <h5 class="fw-bold">Description <span>
+            <h1 id="plant-name"></h1> <span class="btn-group-sm">
+                <button id="sayNameScientific" class="btn btn-sm btn-outline-success">SCIENTIFIC NAME <i class="fas fa-play fa-1x"></i></button>
+                <button id="sayNameCommon" class="btn btn-sm btn-outline-warning">COMMON NAME <i class="fas fa-play fa-1x"></i></button>
+            </span>
+
+            <h5 class="fw-bold mt-3">Description <span>
                 <button id="tts-play" class="btn btn-sm btn-outline-success"> <i class="fas fa-play fa-1x"></i></button>
             <button id="tts-stop" class="btn btn-sm btn-outline-danger"> <i class="fas fa-stop fa-1x"></i></button>
             </span>
@@ -118,6 +124,8 @@ $module = $_GET['module'];
         $('#map').hide();
         let plant = plantsGroupedByType[plantCategory.toLowerCase()][$(element).data('index')];
         $('#plant-name').html(plant['Species']);
+        $('#nameScientific').val(plant['Species'].match(/\(([^)]+)\)/)[1]);
+        $('#nameCommon').val(plant['Species'].substring(0, plant['Species'].indexOf(" (")));
         $('#plant-description').html(plant['Description and growing requirements']);
 
         let species = plant['Species'].match(/\(([^)]+)\)/)[1];
@@ -192,6 +200,14 @@ $module = $_GET['module'];
 
         $('#tts-stop').click(function() {
             responsiveVoice.cancel();
+        });
+
+        $('#sayNameScientific').click(function() {
+            responsiveVoice.speak($('#nameScientific').val());
+        });
+
+        $('#sayNameCommon').click(function() {
+            responsiveVoice.speak($('#nameCommon').val());
         });
 
 

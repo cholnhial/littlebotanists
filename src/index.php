@@ -82,7 +82,7 @@ switch ($_GET['cat']) {
     <script src="js/main.js?version=27"></script>
 
     <!-- Custom styles-->
-    <link href="css/main.css?version=24" rel="stylesheet">
+    <link href="css/main.css?version=25" rel="stylesheet">
 </head>
 <body class="d-flex flex-column h-100">
 <?php include("header.php") ?>
