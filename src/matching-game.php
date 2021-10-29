@@ -3,11 +3,15 @@
 
 <style>
 
+    .text-color-dark {
+        color: var(--lbsecondary);
+    }
+
     body {
-        background-image: url("/img/quizstudy.png");
-        height: 100%;
-        background-position: center;
-        background-repeat: no-repeat;
+        background: url(img/match.png) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
         background-size: cover;
     }
 
@@ -315,6 +319,33 @@
     </div>
 </div>
 
+<div class="modal fade"  id="tipModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-color-dark text-center"><span id="guideName"></span> Says...</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-4">
+                        <img style="23rem" id="guide" src="" />
+                    </div>
+                    <div class="col-6 ms-5">
+                        <div class="text-center">
+                            <i class="fas fa-4x fa-lightbulb help-button-icon"></i>
+                        </div>
+                        <p class="fs-5 text-color-dark">Welcome to the matching game! The game begins with all of the cards face down. Click on a card and it will flip over, showing you a name and image of a plant. Then select another card which is face down. If you see the same card, its a match!</p>
+                        <p class="fs-5 text-color-dark">To complete the game you must match the correct cards together. Please refer to the help tutorial for more information!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- End Score -->
 
@@ -366,6 +397,28 @@
 
   `);});
 
+        var $img = $('img'),
+            totalImg = $img.length;
+
+        var waitImgDone = function() {
+            totalImg--;
+            if (totalImg === 3 || !totalImg) {
+                $.LoadingOverlay("hide");
+                let tipModal = new bootstrap.Modal(document.getElementById('tipModal'), {});
+                setTimeout(function() {
+                    let guide = guides.random();
+                    $('#guide').attr("src",  "img/" + guide.img);
+                    $('#guideName').html(guide.name);
+                    tipModal.show();
+                }, 1000);
+            }
+        };
+
+        $('img').each(function() {
+            $(this).on('load', waitImgDone);
+            $(this).on('error', waitImgDone);
+        });
+
         totalCards = matchingGameCards.length;
         startGame(() => {
             updateUserTimeOnServer((minute * 60)+(hour*60*60)+(second));
@@ -377,6 +430,8 @@
     }
 
     $(document).ready(async function() {
+        initLoadingOverlay();
+        $.LoadingOverlay("show");
        initMatchingGame();
 
 

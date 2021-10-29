@@ -107,7 +107,7 @@ main > .container {
     top: 50%;
     transform: translateY(-50%);
     font-size: 50px;
-    font-family: 'Varela Round', serif;
+    font-family: 'Patrick Hand', cursive;
     font-weight: 400;
     text-align: center;
 }
@@ -268,4 +268,8 @@ main > .container {
 
 .normal-font-size {
     font-size: 1.2em;
+}
+
+footer {
+    font-family: 'Patrick Hand', cursive;
 }

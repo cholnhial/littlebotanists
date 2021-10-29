@@ -9,13 +9,13 @@
  *  Database configuration
  * Local
  */
-//$dbPassword = "root";
-//$databaseHandle = new PDO('mysql:host=littlebotanists-mysql;dbname=littlebotanists', "root", $dbPassword);
+$dbPassword = "root";
+$databaseHandle = new PDO('mysql:host=littlebotanists-mysql;dbname=littlebotanists', "root", $dbPassword);
 
 
 /**
  *  Database configuration
  * Production
  */
-$dbPassword = "15c0184b514c8ce1b7fbb41c";
-$databaseHandle = new PDO('mysql:host=localhost;dbname=littlebotanists', "root", $dbPassword);
+//$dbPassword = "15c0184b514c8ce1b7fbb41c";
+//$databaseHandle = new PDO('mysql:host=localhost;dbname=littlebotanists', "root", $dbPassword);

@@ -7,11 +7,15 @@ $module = $_GET['module'];
         top: 2% !important;
     }
 
+    .text-color-dark {
+        color: var(--lbsecondary);
+    }
+
     body {
-        background-image: url("/img/module.png");
-        height: 100%;
-        background-position-y: 3rem;
-        background-repeat: no-repeat;
+        background: url(img/module.png) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
         background-size: cover;
 
     }
@@ -49,9 +53,15 @@ $module = $_GET['module'];
 <div class="row" style="margin-top: 5%">
     <div class="col">
         <div class="transparent-panel">
-            <h1 id="plant-name"></h1>
+            <input type="hidden"id="nameScientific" value="" />
+            <input type="hidden"id="nameCommon" value="" />
 
-            <h5 class="fw-bold">Description <span>
+            <h1 id="plant-name"></h1> <span class="btn-group-sm">
+                <button id="sayNameScientific" class="btn btn-sm btn-outline-success">SCIENTIFIC NAME <i class="fas fa-play fa-1x"></i></button>
+                <button id="sayNameCommon" class="btn btn-sm btn-outline-warning">COMMON NAME <i class="fas fa-play fa-1x"></i></button>
+            </span>
+
+            <h5 class="fw-bold mt-3">Description <span>
                 <button id="tts-play" class="btn btn-sm btn-outline-success"> <i class="fas fa-play fa-1x"></i></button>
             <button id="tts-stop" class="btn btn-sm btn-outline-danger"> <i class="fas fa-stop fa-1x"></i></button>
             </span>
@@ -105,10 +115,45 @@ $module = $_GET['module'];
     </div>
 </div>
 <!-- End Modal -->
+
+<div class="modal fade"  id="tipModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-color-dark text-center"><span id="guideName"></span> Says...</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-4">
+                        <img style="23rem" id="guide" src="" />
+                    </div>
+                    <div class="col-6 ms-5">
+                        <div class="text-center">
+                            <i class="fas fa-4x fa-lightbulb help-button-icon"></i>
+                        </div>
+                        <p class="fs-3 text-color-dark">Hey! just to let you know this module is not quizzed.
+                            Feel free to explore! If you were wanting to quiz your knowledge
+                            study the Groundcovers module and complete the quiz.
+                        </p>
+                        <div class="d-flex mt-3 justify-content-center">
+                            <a href="index.php?cat=study_categories&plantCategoryType=Groundcovers&module=Groundcovers" class="fs-4 btn btn-outline-secondary friendly-btn text-decoration-none start-quiz-button">Take me to Groundcovers</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     let plantCategory = '<?=$categoryType?>';
     var  plantsGroupedByType = null;
     var tts = null;
+    var modal = null;
 
     function showPlant(element) {
         $('#map-spinner').removeClass('d-none');
@@ -118,6 +163,8 @@ $module = $_GET['module'];
         $('#map').hide();
         let plant = plantsGroupedByType[plantCategory.toLowerCase()][$(element).data('index')];
         $('#plant-name').html(plant['Species']);
+        $('#nameScientific').val(plant['Species'].match(/\(([^)]+)\)/)[1]);
+        $('#nameCommon').val(plant['Species'].substring(0, plant['Species'].indexOf(" (")));
         $('#plant-description').html(plant['Description and growing requirements']);
 
         let species = plant['Species'].match(/\(([^)]+)\)/)[1];
@@ -185,6 +232,16 @@ $module = $_GET['module'];
         });
     }
     $(document).ready(function() {
+        modal = new bootstrap.Modal(document.getElementById('tipModal'), {});
+        setTimeout(function() {
+            if (plantCategory !== 'Groundcovers') {
+                let guide = guides.random();
+                $('#guide').attr("src",  "img/" + guide.img);
+                $('#guideName').html(guide.name);
+                modal.show();
+            }
+        }, 2000);
+
         $('#tts-play').click(function(){
             let text = $('#plant-description').html();
             responsiveVoice.speak(text);
@@ -192,6 +249,14 @@ $module = $_GET['module'];
 
         $('#tts-stop').click(function() {
             responsiveVoice.cancel();
+        });
+
+        $('#sayNameScientific').click(function() {
+            responsiveVoice.speak($('#nameScientific').val());
+        });
+
+        $('#sayNameCommon').click(function() {
+            responsiveVoice.speak($('#nameCommon').val());
         });
 
 

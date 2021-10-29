@@ -7,6 +7,12 @@ function restartAnimation(element, animateClasses) {
 
 var helpModal = null;
 
+var guides = [{name: 'Tahlia', img: 'tahlia.png'}, {name: 'Kevin', img: 'kevin.png'}];
+
+Array.prototype.random = function () {
+    return this[Math.floor((Math.random()*this.length))];
+}
+
 function init() {
     helpModal = new bootstrap.Modal(document.getElementById('helpModal'), {});
     initLoadingOverlay();

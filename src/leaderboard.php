@@ -18,10 +18,10 @@ $usersWithMatchingGameTime = $userService->getUsersWithMatchingGameTime();
     }
 
     body {
-        background-image: url("/img/leaderboard.png");
-        height: 100%;
-        background-position-y: 3rem;
-        background-repeat: no-repeat;
+        background: url(img/leaderboard.png) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
         background-size: cover;
     }
 
@@ -90,16 +90,30 @@ $usersWithMatchingGameTime = $userService->getUsersWithMatchingGameTime();
 <div class="d-flex justify-content-center">
     <div class="row w-100 mt-5">
         <div class="col-4"></div>
+        <?php if($_GET['active'] === 'matching-game'): ?>
         <div class="col-2">
-            <a class="text-decoration-none" href="index.php?cat=module_quiz&module=Groundcovers&plantCategoryType=Groundcovers">
+            <a class="text-decoration-none" href="index.php?cat=matching-game">
                 <div class="card home-menu-card opacity-75">
                     <div class="card-body text-center">
-                        <h4>Quiz</h4>
-                        <i class="far fa-2x fa-file-alt"></i>
+                        <h4>Matching Game</h4>
+                        <i class="fas fa-2x fa-gamepad"></i>
                     </div>
                 </div>
             </a>
         </div>
+        <?php else: ?>
+            <div class="col-2">
+                <a class="text-decoration-none" href="index.php?cat=module_quiz&module=Groundcovers&plantCategoryType=Groundcovers">
+                    <div class="card home-menu-card opacity-75">
+                        <div class="card-body text-center">
+                            <h4>Quiz</h4>
+                            <i class="far fa-2x fa-file-alt"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        <?php endif; ?>
         <div class="col-2">
             <a class="text-decoration-none" href="index.php?cat=study">
                 <div class="card home-menu-card opacity-75">
