@@ -5,6 +5,7 @@
         -moz-background-size: cover;
         -o-background-size: cover;
         background-size: cover;
+        background-position-y: 3rem;
     }
 
     .choose-cat {
