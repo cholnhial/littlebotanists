@@ -52,7 +52,7 @@
                 </a>
             </div>
             <div class="col">
-                <a class="text-decoration-none" href="index.php?cat=module_quiz&module=Groundcovers&plantCategoryType=Groundcovers">
+                <a class="text-decoration-none" href="index.php?cat=module_quiz&module=Groundcovers&plantCategoryType=Groundcovers&shortcut=true">
                 <div class="card home-menu-card opacity-75">
                     <div class="card-body text-center">
                         <h6>Quiz</h6>
