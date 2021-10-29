@@ -1,9 +1,9 @@
 <style>
     body {
-        background-image: url("/img/module.png");
-        height: 100%;
-        background-position-y: 3rem;
-        background-repeat: no-repeat;
+        background: url(img/module.png) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
         background-size: cover;
     }
 

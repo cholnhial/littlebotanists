@@ -38,10 +38,10 @@ $module = $_GET['module'];
     {text-decoration: none !important;}
 
     body {
-        background-image: url("/img/quizstudy.png");
-        height: 100%;
-        background-position: center;
-        background-repeat: no-repeat;
+        background: url(img/quizstudy.png) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
         background-size: cover;
     }
 
@@ -293,7 +293,8 @@ $module = $_GET['module'];
 <h3 id="global-score" class="float-end text-patrick-hand mt-3 text-score">Score: <span id="user-score"></span></h3>
 
 <!-- Start Area for MCQ -->
-<div class="mcq-container" style="margin-top: 13rem">
+<div class="mcq-container h-100" style="margin-top: 13rem">
+    <p class="text-center fs-3 text-color fw-bold">Question <span id="currentQuestion"></span> of <span id="totalQuestions"></span></p>
     <h3 id="mcq-question" class="my-4 text-center text-color">Loading...</h3>
     <div class="d-flex justify-content-center">
         <div id="mcq-answer-correct" style="width: 15rem" class="mx-auto d-none text-center">
@@ -371,9 +372,10 @@ $module = $_GET['module'];
         </div>
         <div class="mx-auto mt-4 mb-2 d-flex justify-content-end" style="width: 30rem">
             <div class="btn-group float-right">
-                <button id="spelling-game-submit" class="btn rounded btn-primary">Submit</button>
-                <button id="spelling-game-next" class="btn rounded btn-success d-none">Next</button>
-                <button id="spelling-game-finish" class="btn rounded btn-success d-none">Finish</button>
+                <button id="spelling-game-submit" class="btn rounded btn-primary me-1">Submit</button>
+                <button id="spelling-game-skip" class="btn rounded btn-danger me-1">Skip</button>
+                <button id="spelling-game-next" class="btn rounded btn-success d-none me-1">Next</button>
+                <button id="spelling-game-finish" class="btn rounded btn-success d-none me-1">Finish</button>
             </div>
         </div>
 
@@ -383,10 +385,9 @@ $module = $_GET['module'];
 
 <!-- Score -->
 <div class="score-container d-none text-center">
-    <div class="text-center" style="margin-top: 12%">
-        <img class="lblogo" src="img/Logo.png" alt="logo"/>
-        <h3 class="text-center text-color-quiz-finish">Well done <?= $_COOKIE['username'] ?> your score is <span id="end-user-score"></span></h3>
-        <p class="text-center text-color-quiz-finish normal-font-size">What would you like to do next?</p>
+    <div class="text-center" style="margin-top: 2%">
+        <h3 class="text-center text-color-dark">Well done <?= $_COOKIE['username'] ?> your score is <span id="end-user-score"></span></h3>
+        <p class="text-center text-color-dark normal-font-size">What would you like to do next?</p>
     </div>
     <div class="row">
         <div class="col-3">
@@ -395,8 +396,8 @@ $module = $_GET['module'];
             <a class="text-decoration-none" href="index.php?cat=study_categories&plantCategoryType=<?= $categoryType?>&module=<?=$module?>">
                 <div class="card menu-card home-menu-card opacity-75">
                     <div class="card-body text-center">
-                        <h2>Study Again</h2>
-                        <i class="fas fa-3x fa-graduation-cap"></i>
+                        <h4>Study Again</h4>
+                        <i class="fas fa-2x fa-graduation-cap"></i>
                     </div>
                 </div>
             </a>
@@ -405,8 +406,8 @@ $module = $_GET['module'];
             <a class="text-decoration-none" href="index.php?cat=leaderboard">
             <div class="card menu-card home-menu-card opacity-75">
                 <div class="card-body text-center">
-                    <h2>Leadership Board</h2>
-                    <i class="fas fa-3x fa-chart-line"></i>
+                    <h4>Leadership Board</h4>
+                    <i class="fas fa-2x fa-chart-line"></i>
                 </div>
             </div>
             </a>
@@ -419,6 +420,38 @@ $module = $_GET['module'];
 
 <!-- End Score -->
 
+<div class="modal fade"  id="tipModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-color-dark text-center"><span id="guideName"></span> Says...</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-4">
+                        <img style="23rem" id="guide" src="" />
+                    </div>
+                    <div class="col-6 ms-5">
+                        <div class="text-center">
+                            <i class="fas fa-4x fa-lightbulb help-button-icon"></i>
+                        </div>
+                        <p class="fs-3 text-color-dark">Hey I noticed you came straight to the quiz.
+                            Have you already studied about Groudcovers? If not please go back and study the content.
+                        </p>
+                        <div class="d-flex mt-3 justify-content-center">
+                            <a href="index.php?cat=study_categories&plantCategoryType=Groundcovers&module=Groundcovers" class="fs-4 btn btn-outline-secondary friendly-btn text-decoration-none start-quiz-button">Take me to Groundcovers</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     var userGameScore = 0;
@@ -428,6 +461,8 @@ $module = $_GET['module'];
     var questionsSpellingGame = null;
     var MCQDone = false;
     var spellingGameDone = false;
+    var isShortcut = <?= isset($_GET['shortcut']) ? 'true' : 'false' ?>
+
 
    async function getGameTypeQuestions(type) {
         return fetch('/data/module-quiz.json')
@@ -467,6 +502,7 @@ $module = $_GET['module'];
                });
 
                restartAnimation('.mcq-container', 'animate__animated animate__slideInLeft')
+               $('#currentQuestion').html(nextQuestionMCQ + 1);
            }, 2500);
        } else {
            // Hide feedbacks
@@ -488,7 +524,8 @@ $module = $_GET['module'];
                `)
            });
 
-           restartAnimation('.mcq-container', 'animate__animated animate__slideInLeft')
+           restartAnimation('.mcq-container', 'animate__animated animate__slideInLeft');
+           $('#currentQuestion').html(nextQuestionMCQ + 1);
        }
 
 
@@ -497,6 +534,8 @@ $module = $_GET['module'];
 
     async function initMCQ() {
         questionsMCQ  = await getGameTypeQuestions("mcq");
+        $('#totalQuestions').html(questionsMCQ.length);
+        $('#currentQuestion').html(nextQuestionMCQ + 1);
         displayQuestionMCQ(questionsMCQ[0], 0);
     }
 
@@ -535,6 +574,10 @@ $module = $_GET['module'];
 
 
     function goToNextMCQQuestion(isSkip) {
+       if (nextQuestionMCQ >= questionsMCQ.length) {
+           return;
+       }
+
         nextQuestionMCQ++;
         if(nextQuestionMCQ == questionsMCQ.length) {
             setTimeout(function() {
@@ -575,10 +618,25 @@ $module = $_GET['module'];
        $('.score-container').removeClass('d-none');
        $('#end-user-score').html(userGameScore);
        $('#global-score').addClass('d-none');
+       $('body').css('background', 'url(img/congratulations1.png) no-repeat center center fixed');
+        $('body').css('-webkit-background-size', 'cover');
+        $('body').css('-moz-background-size', 'cover');
+        $('body').css('-o-background-size', 'cover');
+        $('body').css('background-size', 'cover');
        updateUserScoreOnServer();
     }
 
     $(document).ready(function() {
+
+        if (isShortcut) {
+            setTimeout(function() {
+                modal = new bootstrap.Modal(document.getElementById('tipModal'), {});
+                let guide = guides.random();
+                $('#guide').attr("src",  "img/" + guide.img);
+                $('#guideName').html(guide.name);
+                modal.show();
+            }, 1000);
+        }
 
         beginGame();
 
@@ -587,6 +645,10 @@ $module = $_GET['module'];
         });
 
         $('#spelling-game-next').click(function () {
+            if (nextQuestionSpellingGame >= questionsSpellingGame.length) {
+                return;
+            }
+
             $('#spelling-correct').addClass('d-none');
             $('#spelling-game-submit').removeClass('d-none');
             $('#spelling-input').val("");
@@ -594,17 +656,47 @@ $module = $_GET['module'];
                 nextQuestionSpellingGame++;
                 $('#spelling-game-next').addClass('d-none');
 
-                // On last question
-                if (nextQuestionSpellingGame + 1 === questionsSpellingGame.length) {
-                    spellingGameDone = true;
-                }
+                restartAnimation('.spelling-container', 'animate__animated animate__slideInLeft');
+                spellingGamePlayAudio();
             } else {
                 // do nothing
             }
         });
 
+        $('#spelling-game-skip').click(function() {
+            if (nextQuestionSpellingGame >= questionsSpellingGame.length) {
+                return;
+            }
+
+            if (nextQuestionSpellingGame + 1 == questionsSpellingGame.length) {
+                endQuiz();
+                return;
+            }
+
+            $('#spelling-correct').addClass('d-none');
+            $('#spelling-game-submit').removeClass('d-none');
+            $('#spelling-input').val("");
+            if (nextQuestionSpellingGame < questionsSpellingGame.length) {
+                nextQuestionSpellingGame++;
+                restartAnimation('.spelling-container', 'animate__animated animate__slideInLeft');
+                spellingGamePlayAudio();
+            }
+        });
+
         $('#spelling-game-submit').click(function () {
             showSpellingGameFeedback();
+            // On last question
+            let userSpelling = $('#spelling-input').val();
+            if (nextQuestionSpellingGame + 1 === questionsSpellingGame.length) {
+                let isCorrect = userSpelling.toLocaleLowerCase() ===
+                    questionsSpellingGame[nextQuestionSpellingGame].word.toLocaleLowerCase();
+
+                if(isCorrect) {
+                    spellingGameDone = true;
+                }
+
+            }
+
             if (spellingGameDone) {
                 $('#spelling-input').val("");
                 $('#spelling-game-next').addClass('d-none');

@@ -1,9 +1,9 @@
 <style>
     body {
-        background-image: url("/img/home-background.png");
-        height: 100%;
-        background-position: center;
-        background-repeat: no-repeat;
+        background: url(img/home1.png) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
         background-size: cover;
     }
 
@@ -14,6 +14,11 @@
         margin-left: 95%;
     }
 
+    .transparent-panel {
+        width: 45rem;
+        padding: 2px;
+        margin-left: 12rem;;
+    }
     a:hover,
     a:visited,
     a:focus
@@ -22,8 +27,8 @@
 </style>
 <img class="cool-sun" src="/img/cool-sun.png?version=1">
 <div>
-    <div class="text-center" style="margin-top: -6%; margin-left: 29%">
-        <img class="lblogo" src="img/Logo.png" alt="logo"/>
+    <div class="text-center" style="margin-top: 0%; margin-left: 29%">
+       <!-- <img class="lblogo" src="img/Logo.png" alt="logo"/> -->
         <div class="transparent-panel fs-4">
             <p class="my-0 mx-0">Welcome to Little Botanists <?= $_COOKIE['username'] ?></p>
             <p class="my-0 mx-0">Here you can learn everything there is to know about Australia's amazing plants!</p>
@@ -34,7 +39,7 @@
 
     </div>
 
-    <div  style="margin-top: 12rem">
+    <div  style="margin-top: 15rem">
         <div class="row">
             <div class="col">
                 <a class="text-decoration-none" href="index.php?cat=study">

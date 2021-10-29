@@ -11,10 +11,10 @@
     }
 
     body {
-        background-image: url("/img/home-background.png");
-        height: 100%;
-        background-position: center;
-        background-repeat: no-repeat;
+        background: url(img/home1.png) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
         background-size: cover;
     }
 

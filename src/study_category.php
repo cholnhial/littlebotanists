@@ -7,11 +7,15 @@ $module = $_GET['module'];
         top: 2% !important;
     }
 
+    .text-color-dark {
+        color: var(--lbsecondary);
+    }
+
     body {
-        background-image: url("/img/module.png");
-        height: 100%;
-        background-position-y: 3rem;
-        background-repeat: no-repeat;
+        background: url(img/module.png) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
         background-size: cover;
 
     }
@@ -111,10 +115,45 @@ $module = $_GET['module'];
     </div>
 </div>
 <!-- End Modal -->
+
+<div class="modal fade"  id="tipModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-color-dark text-center"><span id="guideName"></span> Says...</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-4">
+                        <img style="23rem" id="guide" src="" />
+                    </div>
+                    <div class="col-6 ms-5">
+                        <div class="text-center">
+                            <i class="fas fa-4x fa-lightbulb help-button-icon"></i>
+                        </div>
+                        <p class="fs-3 text-color-dark">Hey! just to let you know this module is not quizzed.
+                            Feel free to explore! If you were wanting to quiz your knowledge
+                            study the Groundcovers module and complete the quiz.
+                        </p>
+                        <div class="d-flex mt-3 justify-content-center">
+                            <a href="index.php?cat=study_categories&plantCategoryType=Groundcovers&module=Groundcovers" class="fs-4 btn btn-outline-secondary friendly-btn text-decoration-none start-quiz-button">Take me to Groundcovers</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     let plantCategory = '<?=$categoryType?>';
     var  plantsGroupedByType = null;
     var tts = null;
+    var modal = null;
 
     function showPlant(element) {
         $('#map-spinner').removeClass('d-none');
@@ -193,6 +232,16 @@ $module = $_GET['module'];
         });
     }
     $(document).ready(function() {
+        modal = new bootstrap.Modal(document.getElementById('tipModal'), {});
+        setTimeout(function() {
+            if (plantCategory !== 'Groundcovers') {
+                let guide = guides.random();
+                $('#guide').attr("src",  "img/" + guide.img);
+                $('#guideName').html(guide.name);
+                modal.show();
+            }
+        }, 2000);
+
         $('#tts-play').click(function(){
             let text = $('#plant-description').html();
             responsiveVoice.speak(text);

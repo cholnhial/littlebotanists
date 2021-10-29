@@ -34,7 +34,7 @@ if (isset($_GET['cat'])) {
         <nav class="overlay-menu d-flex justify-content-center">
             <ul class="text-start">
                 <li><a href="index.php?cat=study"><i class="fas fa-graduation-cap"></i> Study</a></li>
-                <li><a href="index.php?cat=module_quiz&module=Groundcovers&plantCategoryType=Groundcovers"><i class="far fa-file-alt"></i> Quiz</a></li>
+                <li><a href="index.php?cat=module_quiz&module=Groundcovers&plantCategoryType=Groundcovers&shortcut=true"><i class="far fa-file-alt"></i> Quiz</a></li>
                 <li><a href="index.php?cat=matching-game"><i class="fas fa-gamepad"></i> Matching Game</a></li>
                 <li><a href="index.php?cat=leaderboard"><i class="fas fa-chart-line"></i> Leaderboard</a></li>
                 <li><a href="index.php?cat=about"><i class="fas fa-info-circle"></i> About</a></li>

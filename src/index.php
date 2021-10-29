@@ -79,15 +79,15 @@ switch ($_GET['cat']) {
     <!-- For improved text to speed -->
     <script src="https://code.responsivevoice.org/responsivevoice.js?key=nIDs4neg"></script>
     <!-- Our custom JS -->
-    <script src="js/main.js?version=27"></script>
+    <script src="js/main.js?version=29"></script>
 
     <!-- Custom styles-->
-    <link href="css/main.css?version=25" rel="stylesheet">
+    <link href="css/main.css?version=74" rel="stylesheet">
 </head>
 <body class="d-flex flex-column h-100">
 <?php include("header.php") ?>
 
-<main class="flex-shrink-0<?= $_GET['cat'] == 'about' ? ' overflow-scroll' : ''?>" <?php echo $_GET['cat'] == 'about' ? 'style="height: 48rem;"' : '' ?>>
+<main class="flex-shrink-0">
     <div class="container">
     <?php if(isset($_GET['cat']) && $_GET['cat'] == 'name'): ?>
         <?php $pageTitle = "Name" ?>
