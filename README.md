@@ -1,7 +1,7 @@
 # Little Botanists
 
 An educational web application for DECO1800. I collaborated within a team of 5. My main role was leading the development process.
-Helping assign tasks to other members and onboarding them onto their tasks when I saw fit. I was in charged of setting up the development environments and selecting the technologies to use for the project.
+Helping assign tasks to other members and onboarding them onto their tasks when I saw fit. I was in charge of setting up the development environments and selecting the technologies to use for the project.
 The technologies we chose were:
 * Docker (to simplify dev environment)
 * PHP
