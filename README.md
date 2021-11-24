@@ -12,6 +12,8 @@ The technologies we chose were:
 * JVectorMap
 * and more Open Source stuff
 
+If you are a student at UQ you can view our site at: https://wombat.uqcloud.net
+
 Surprisingly our project was nominated for best UX and UI for ITEE awards which unfortunately we didn't win.
 
 > Little Botanists aims to excite, inform, and educate Australian primary school students aged 10 to 12 about common native flora. Little Botanists is an existing alternative to teach what could be otherwise stale content to a younger demographic.
